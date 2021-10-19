@@ -1,4 +1,4 @@
-export const handleColorType = color => {
+export const handleColorType = (color:string) => {
     switch (color) {
         case "greenSuccessColor":
             return "#28a745";
@@ -11,13 +11,13 @@ export const handleColorType = color => {
     }
 };
 
-export const handleStatus=status=>{
+export const handleStatus=(status:string)=>{
     if(status==='error'){
 
     }
 }
 
-export const handlePosition = position => {
+export const handlePosition = (position:string) => {
     if (position === "top") {
         return `
           bottom: 130%;
