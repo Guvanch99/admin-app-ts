@@ -1,8 +1,9 @@
-import {useSelector} from "react-redux"
 import {CustomTable, PageBack} from "../../components"
 
+import {useAppSelector} from "../../hooks/redux";
+
 const FeaturedProducts = () => {
-    const {featuredProducts} = useSelector(state => state.crud)
+    const {featuredProducts} = useAppSelector(state => state.crud)
 
     return (
         <>

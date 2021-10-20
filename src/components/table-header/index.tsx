@@ -8,7 +8,6 @@ const {tableHeaderRow} = DATA
 
 const TableHeader = () => {
 
-
     return <thead>
     <S.TReaderRow>
         {tableHeaderRow.map((name, idx) => <S.THeadRowHeader key={idx}>{name}</S.THeadRowHeader>)}

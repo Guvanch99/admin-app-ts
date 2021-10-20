@@ -8,12 +8,12 @@ import * as S from "./styled"
 
 interface ICustomTable {
     data: IDataValue
-    setCurrentPage: () => void
+    setCurrentPage: () => number
     currentPage: number
 }
 
 const CustomTable: FC<ICustomTable> = ({data, setCurrentPage, currentPage}) => {
-    const refTable = useRef<HTMLDivElement>(null);
+    const refTable = useRef<HTMLElement|null>(null);
 
     const countItems = Math.ceil(data[2] / LIMIT_ITEMS)
 

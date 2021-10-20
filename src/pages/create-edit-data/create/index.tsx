@@ -1,8 +1,9 @@
 import {useState} from "react";
 import {useHistory} from "react-router-dom";
-import {useDispatch} from "react-redux";
 
 import {CustomButton, CustomInput, ModalPreview, ModalSuccess, PageBack, Portal} from "../../../components";
+
+import {useAppDispatch} from "../../../hooks/redux";
 
 import {addNewData} from "../../../redux/crudSlice";
 
@@ -10,13 +11,14 @@ import {isObjectValueEmpty} from "../../../utils";
 
 import {DB} from "../../../core/axios";
 
-import {ALL_PRODUCTS} from "../../../constants/variables";
-import {ROUTER_DATA_ADD} from "../../../constants/routers";
-import {REGEX_NUMBER} from "../../../constants/regex";
+import {ALL_PRODUCTS} from "../../../constants/variables.constants";
+import {ROUTER_DATA_ADD} from "../../../constants/routers.constants";
+import {REGEX_NUMBER} from "../../../constants/regex.constants";
 
 import {DATA} from "../../../data";
 
 import * as S from '../styled'
+
 
 
 const {selectOptionType} = DATA
@@ -31,11 +33,11 @@ const DataAdd = () => {
         price: ''
     })
 
-    const [error, setError] = useState(false)
-    const [addDataType, setAddDataType] = useState('combo')
-    const [isModalPreview, setIsModalPreview] = useState(false)
-    const [isModalSuccess, setIsModalSuccess] = useState(false)
-    const dispatch = useDispatch()
+    const [error, setError] = useState<boolean>(false)
+    const [addDataType, setAddDataType] = useState<string>('combo')
+    const [isModalPreview, setIsModalPreview] = useState<boolean>(false)
+    const [isModalSuccess, setIsModalSuccess] = useState<boolean>(false)
+    const dispatch = useAppDispatch()
 
     const handleChange = ({target: {name, value}}) => {
         setAddData({...addData, [name]: value})

@@ -1,6 +1,7 @@
 import {memo, useEffect, useMemo, useState} from "react";
 import moment from "moment";
-import {useSelector, useDispatch} from "react-redux";
+
+import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 
 import {getOrder} from "../../redux/crudSlice";
 
@@ -13,6 +14,7 @@ import {DATA} from "../../data";
 import {PERIOD} from "../../constants/variables.constants";
 
 import * as S from './styled'
+
 
 const {filterOptions} = DATA
 
@@ -37,9 +39,9 @@ const Filter = () => {
         both: ''
     })
     const [tag, setTag] = useState<boolean>(false)
-    const {sort, filteredOrders} = useSelector(state => state.filter)
+    const {sort, filteredOrders} = useAppSelector(state => state.filter)
 
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     const {from, to} = inputDate
     const {both} = errors

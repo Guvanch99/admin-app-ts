@@ -1,7 +1,9 @@
-import {useDispatch} from "react-redux";
+
 import {NavLink} from "react-router-dom";
 
 import {CustomButton} from "../index"
+
+import {useAppDispatch} from "../../hooks/redux";
 
 import {deleteItem} from "../../redux/crudSlice";
 
@@ -9,11 +11,10 @@ import {ROUTER_DATA_EDIT} from "../../constants/routers.constants";
 
 import * as S from "./styled"
 
-
 const TableBody = ({data}) => {
     const url = data[0]
 
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     const handleDelete = (id, url) => {
         const prop = {id, url}

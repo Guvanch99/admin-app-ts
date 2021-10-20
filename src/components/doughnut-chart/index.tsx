@@ -2,6 +2,8 @@ import {useSelector} from "react-redux";
 
 import {ToolTip} from "../index";
 
+import {useAppSelector} from "../../hooks/redux";
+
 import {getTotals} from "../../utils";
 
 import {EXPECTED_INCOME} from "../../constants/variables.constants";
@@ -10,7 +12,7 @@ import * as S from './styled'
 
 
 const DoughnutChart = () => {
-    const {orders} = useSelector(state => state.crud)
+    const {orders} = useAppSelector(state => state.crud)
 
     const circleElements = getTotals(orders)
     const {total, products} = circleElements

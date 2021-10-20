@@ -1,7 +1,7 @@
 import {createSlice} from "@reduxjs/toolkit";
 
-import {ALL_PRODUCTS, NEXT_ID,} from "../../constants/variables";
-import {ROUTER_FEATURED_PRODUCTS, ROUTER_GALLERY, ROUTER_USERS} from "../../constants/routers";
+import {ALL_PRODUCTS, NEXT_ID,} from "../../constants/variables.constants";
+import {ROUTER_FEATURED_PRODUCTS, ROUTER_GALLERY, ROUTER_USERS} from "../../constants/routers.constants";
 
 const CrudSlice = createSlice({
     name: 'crud',

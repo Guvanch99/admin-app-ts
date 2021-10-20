@@ -1,7 +1,9 @@
 import {useEffect, useState} from "react";
-import {useSelector, useDispatch} from "react-redux";
 
 import {CustomTable, PageBack, Spinner} from "../../components";
+
+
+import {useAppSelector,useAppDispatch} from "../../hooks/redux";
 
 import {ROUTER_DATA_ADD} from "../../constants/routers.constants";
 
@@ -9,9 +11,9 @@ import * as S from "./styled"
 import {getProducts} from "../../redux/crudSlice";
 
 const Products = () => {
-    const {products} = useSelector(state => state.crud)
-    const [currentPage, setCurrentPage] = useState(1)
-    const dispatch = useDispatch()
+    const {products} = useAppSelector(state => state.crud)
+    const [currentPage, setCurrentPage] = useState<number>(1)
+    const dispatch = useAppDispatch()
 
     useEffect(() => {
         dispatch(getProducts(currentPage))

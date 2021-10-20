@@ -1,12 +1,19 @@
 import {createSlice} from "@reduxjs/toolkit";
 
+interface IAdminState{
+    isAdmin:boolean
+    adminNotFound:boolean
+    isModal:boolean
+}
+const initialState:IAdminState= {
+    isAdmin: false,
+    adminNotFound: false,
+    isModal: false
+}
+
 const adminSlice = createSlice({
     name: 'Admin',
-    initialState: {
-        isAdmin: false,
-        adminNotFound: false,
-        isModal: false
-    },
+    initialState,
     reducers: {
         loginAdmin(state) {
             state.isAdmin = true

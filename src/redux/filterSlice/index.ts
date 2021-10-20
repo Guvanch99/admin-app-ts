@@ -2,7 +2,7 @@ import {createSlice} from "@reduxjs/toolkit";
 
 import moment from "moment";
 
-import {CUSTOM_DATE, EMPTY, LAST_WEEK, MONTH, PERIOD, TODAY, TWO_MONTH, TWO_WEEKS} from "../../constants/variables";
+import { EMPTY, LAST_WEEK, MONTH, PERIOD, TODAY, TWO_MONTH, TWO_WEEKS} from "../../constants/variables.constants";
 
 const filterSlice = createSlice({
     name: 'filter',

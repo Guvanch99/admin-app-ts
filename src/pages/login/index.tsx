@@ -1,8 +1,9 @@
 import {useMemo, useState} from "react"
 import {useHistory} from "react-router-dom"
-import {useSelector, useDispatch} from 'react-redux'
 
 import {CustomInput,CustomButton} from '../../components'
+
+import {useAppDispatch,useAppSelector} from "../../hooks/redux";
 
 import {loginAdmin, adminError} from "../../redux/adminSlice"
 
@@ -13,20 +14,26 @@ import {upperCaseString} from "../../utils"
 
 import * as S from "./styled"
 
+interface ILogin{
+    adminName:string
+    password:string
+}
+
 const Login = () => {
-    const [adminLogin, setAdminLogin] = useState({
+    const [adminLogin, setAdminLogin] = useState<ILogin>({
         adminName: '',
         password: ''
     })
-    const [errors, setErrors] = useState({
+    const [errors, setErrors] = useState<ILogin>({
         adminName: '',
         password: ''
     })
     const {adminName, password} = adminLogin
 
     const history = useHistory()
-    const dispatch = useDispatch()
-    const {adminNotFound} = useSelector(state => state.admin)
+    const dispatch = useAppDispatch()
+    const {adminNotFound} = useAppSelector(state => state.admin)
+
     const isButtonDisabled = !adminName || !password || errors.adminName || errors.password
 
     const adminValidation = () => adminName.length < 4 ? setErrors({

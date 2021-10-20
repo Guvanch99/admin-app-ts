@@ -1,18 +1,21 @@
 import {useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
 
 import {DoughnutChart, PageBack, Spinner, ToolTip} from "../../components";
+
+import {useAppDispatch,useAppSelector} from "../../hooks/redux";
 
 import {getOrder} from "../../redux/crudSlice";
 
 import * as S from './styled'
 
 const Statistics = () => {
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
+
     useEffect(() => {
         dispatch(getOrder())
     }, [dispatch])
-    const {orders} = useSelector(state => state.crud)
+
+    const {orders} = useAppSelector(state => state.crud)
 
     return (
         <S.StatisticsContainer>

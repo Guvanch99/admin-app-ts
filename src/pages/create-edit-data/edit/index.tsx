@@ -1,8 +1,9 @@
 import {useEffect, useState} from "react";
 import {useLocation, useHistory} from "react-router-dom";
-import {useDispatch} from "react-redux";
 
 import {CustomButton, CustomInput, ModalPreview, Portal, ModalSuccess, PageBack} from "../../../components";
+
+import {useAppDispatch} from "../../../hooks/redux";
 
 import {updateItem} from "../../../redux/crudSlice";
 
@@ -10,21 +11,17 @@ import {isObjectValueEmpty} from "../../../utils";
 
 import {getSingleData} from "../../../services/getSingleData";
 
-import {REGEX_NUMBER} from "../../../constants/regex";
-
-import {ROUTER_GALLERY, ROUTER_PRODUCTS} from "../../../constants/routers";
+import {REGEX_NUMBER} from "../../../constants/regex.constants";
+import {ROUTER_GALLERY, ROUTER_PRODUCTS} from "../../../constants/routers.constants";
 
 import {ErrorGlobal} from "../styled";
 
 import * as S from '../styled'
 
-
-
-
 const Create = () => {
     const location = useLocation()
     const history = useHistory()
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     const [error, setError] = useState(false)
     const [isModalPreview, setIsModalPreview] = useState(false)

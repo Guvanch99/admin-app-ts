@@ -4,17 +4,22 @@ import {biteToMb} from "../../utils";
 
 import {DATA} from "../../data";
 
-import {FILE_TYPE, FIVE_MB} from "../../constants/variables";
+import {FILE_TYPE, FIVE_MB} from "../../constants/variables.constants";
 
 import * as S from './styled'
 
 const {instructions} = DATA
 
+interface IErrorState{
+    errorSample:boolean
+    condition:string
+}
+
 const DragDrop = () => {
-    const [isDrag, setIsDrag] = useState(true)
-    const [success, setSuccess] = useState(false)
-    const [file, setFile] = useState(null)
-    const [error, setError] = useState({
+    const [isDrag, setIsDrag] = useState<boolean>(true)
+    const [success, setSuccess] = useState<boolean>(false)
+    const [file, setFile] = useState<Object|null>(null)
+    const [error, setError] = useState<IErrorState>({
         errorSample: false,
         condition: ''
 

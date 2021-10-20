@@ -1,8 +1,9 @@
-import {useSelector} from "react-redux";
 import {CustomTable, PageBack} from "../../components";
 
+import {useAppSelector} from "../../hooks/redux";
+
 const Gallery = () => {
-    const {gallery} = useSelector(state => state.crud)
+    const {gallery} = useAppSelector(state => state.crud)
 
     return (
         <div>

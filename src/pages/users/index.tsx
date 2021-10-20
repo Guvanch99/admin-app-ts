@@ -1,19 +1,20 @@
 import {useEffect, useState} from "react";
-import {useSelector, useDispatch} from "react-redux";
 
 import {CustomTable, PageBack, Spinner} from "../../components";
+
+import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 
 import {getUsers} from "../../redux/crudSlice";
 
 const Users = () => {
-    const [currentPage, setCurrentPage] = useState(1)
-    const dispatch = useDispatch()
+    const [currentPage, setCurrentPage] = useState<number>(1)
+    const dispatch = useAppDispatch()
 
     useEffect(() => {
         dispatch(getUsers(currentPage))
     }, [currentPage,dispatch])
 
-    const {users} = useSelector(state => state.crud)
+    const {users} = useAppSelector(state => state.crud)
 
     return (
         <>

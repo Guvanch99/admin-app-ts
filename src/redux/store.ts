@@ -1,18 +1,11 @@
 import {configureStore} from "@reduxjs/toolkit";
-import saga from 'redux-saga'
-import logger from 'redux-logger'
 
-import {reducer} from "./";
-import rootSaga from './saga'
-
-const sagaMiddleware = saga()
+import {rootReducer} from "./";
 
 export default configureStore({
-    reducer,
-    middleware: (getDefaultMiddleware => getDefaultMiddleware({
-        serializableCheck: false,
-        thunk: false
-    }).concat(sagaMiddleware,logger))
+    reducer: rootReducer,
+    middleware: (getDefaultMiddleware => getDefaultMiddleware({serializableCheck: false}))
 })
 
-sagaMiddleware.run(rootSaga)
+export type AppStore=ReturnType<typeof configureStore>
+export type AppDispatch=AppStore['dispatch']

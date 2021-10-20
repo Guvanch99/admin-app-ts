@@ -1,11 +1,21 @@
 import * as S from "./styled"
+import {FC} from "react";
 
 interface ICustomInput{
     name:string
+    value:string
+    label:string
+    error:string
+    type:string
+    onChange:()=>void
+    required:boolean
+    handleBlur:()=>void
+    disabled:boolean
+    bg?:boolean
 
 }
 
-const CustomInput = ({name, value, label, error, type, onChange, required, handleBlur, disabled, bg}) => (
+const CustomInput:FC<ICustomInput> = ({name, value, label, error, type, onChange, required, handleBlur, disabled, bg}) => (
     <S.Container>
         <S.Label htmlFor={name}>
             {label}
