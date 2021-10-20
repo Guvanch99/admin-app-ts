@@ -9,8 +9,6 @@ import {deleteItem} from "../../redux/crudSlice";
 
 import {ROUTER_DATA_EDIT} from "../../constants/routers.constants";
 
-import {ISingleData} from "../../interface/global.interface";
-
 import * as S from "./styled"
 
 
@@ -19,7 +17,7 @@ const TableBody = ({data}) => {
 
     const dispatch = useAppDispatch()
 
-    const handleDelete = ((id, url):ISingleData) => {
+    const handleDelete = (id:number, url:string) => {
         const prop = {id, url}
         dispatch(deleteItem(prop))
     }
@@ -27,7 +25,7 @@ const TableBody = ({data}) => {
     return (
         <tbody>
         {
-            data[1].map(({id, name, alt, userName}, idx) => (
+            data[1].map(({id, name, alt, userName}, idx:number) => (
                 <S.TableBodyRowContainer key={idx}>
                     <S.TableBodyTD>{id}</S.TableBodyTD>
                     <S.TableBodyTD>{name || alt || userName}</S.TableBodyTD>

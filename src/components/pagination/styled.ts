@@ -2,11 +2,18 @@ import styled from "styled-components";
 
 import {flexCenter} from "../../styles/flex.styled";
 
+import {IColor} from "../../interface/theme.interface";
+
+interface IPageButtons{
+  isActive:boolean
+  theme:IColor
+}
+
 export const PaginationContainer = styled.div`
   ${flexCenter};
 `
 
-export const PageButtons = styled.button`
+export const PageButtons = styled.button<IPageButtons>`
   width: 3rem;
   margin: .4rem;
   padding: .4rem;
@@ -21,8 +28,6 @@ export const PageButtons = styled.button`
     background: ${({theme}) => theme.colors.lighterYellowColor};
     color: ${({theme}) => theme.colors.whiteColor};
   }
-
-
 `
 
 

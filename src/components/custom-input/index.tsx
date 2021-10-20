@@ -11,7 +11,7 @@ interface ICustomInput{
     required:boolean
     handleBlur:()=>void
     disabled:boolean
-    bg?:boolean
+    bg:string
 
 }
 

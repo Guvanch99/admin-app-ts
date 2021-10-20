@@ -1,4 +1,4 @@
-import {useState, useRef} from "react";
+import React, {useState, useRef} from "react";
 
 import {biteToMb} from "../../utils";
 
@@ -10,39 +10,45 @@ import * as S from './styled'
 
 const {instructions} = DATA
 
-interface IErrorState{
-    errorSample:boolean
-    condition:string
+interface IErrorState {
+    errorSample: boolean
+    condition: string
 }
 
 const DragDrop = () => {
     const [isDrag, setIsDrag] = useState<boolean>(true)
     const [success, setSuccess] = useState<boolean>(false)
-    const [file, setFile] = useState<Object|null>(null)
+    const [file, setFile] = useState< File | null>(null)
     const [error, setError] = useState<IErrorState>({
         errorSample: false,
         condition: ''
 
     })
-    const inputRef = useRef(null)
+    const inputRef = useRef<HTMLInputElement>(null)
 
-    const openDirectory = () => inputRef.current.click();
+    const openDirectory = () => {
+        if (inputRef && inputRef.current)
+            inputRef.current.click();
+    }
 
-    const dragStartHandler = e => {
+    const dragStartHandler = (e: DragEvent) => {
         e.preventDefault()
         e.stopPropagation()
         setIsDrag(false)
         setError({errorSample: false, condition: ''})
     }
 
-    const dragLeaveHandler = e => {
+    const dragLeaveHandler = (e: DragEvent) => {
         e.preventDefault()
         e.stopPropagation()
         setIsDrag(true)
     }
 
-    const onDrop = e => {
+    const onDrop = (e: DragEvent) => {
+        //TODO check dataTransfer type
+        // @ts-ignore
         const {dataTransfer: {files}} = e
+        console.log("files", files)
         e.preventDefault()
         e.stopPropagation()
 
@@ -60,14 +66,15 @@ const DragDrop = () => {
         }
     }
 
-    const selectFileHandler = ({target: {files}}) => {
-        if (files[0].size < FIVE_MB) {
-            setFile(files[0])
-            setSuccess(true)
-            setIsDrag(true)
-            setError({errorSample: false, condition: ''})
-        } else
-            setError({errorSample: true, condition: 'Must be less than 5 MB'})
+    const selectFileHandler = ({target: {files}}: React.ChangeEvent<HTMLInputElement>) => {
+        if (files) {
+            if (files[0].size < FIVE_MB) {
+                setFile(files[0])
+                setSuccess(true)
+                setIsDrag(true)
+                setError({errorSample: false, condition: ''})
+            } else setError({errorSample: true, condition: 'Must be less than 5 MB'})
+        }
     }
 
     const closeSuccess = () => setSuccess(false)
@@ -77,41 +84,41 @@ const DragDrop = () => {
     return (
         <S.Container>
             <S.ExcelUploaderText>Excel Uploader</S.ExcelUploaderText>
-            <S.DropArea onDragStart={dragStartHandler}
-                        onDragLeave={dragLeaveHandler}
-                        onDragOver={dragStartHandler}
-                        onDrop={onDrop}
-                        isSolidLine={!isDrag}
-                        error={errorSample}
-                        success={success}>
-                {success ? (
-                    <S.DragContainer>
-                        <S.Icon status={errorSample} big className='fas fa-check-circle'/>
-                        <S.Button status={errorSample} onClick={closeSuccess}>Close</S.Button>
-                    </S.DragContainer>
-                ) : errorSample ? (
-                    <S.DragContainer>
-                        <S.Icon status={errorSample} big className='fas fa-redo'/>
-                        <S.Button status={errorSample} onClick={openDirectory}>File Upload</S.Button>
-                        <S.DragText status={errorSample}>{condition}</S.DragText>
-                    </S.DragContainer>
-                ) : (isDrag ? (
-                            <S.DragContainer>
-                                <S.IconSimple big className='fas fa-file-csv'/>
-                                <S.Button onClick={openDirectory}>File Upload</S.Button>
-                                <S.DragTextH2>Drag for Uploading file</S.DragTextH2>
-                            </S.DragContainer>)
-                        :
-                        <S.DragTextH2>
-                            Drag for Uploading file
-                        </S.DragTextH2>
-                )}
-                <S.Input type='file'
-                         multiple={false}
-                         accept={FILE_TYPE}
-                         ref={inputRef}
-                         onChange={selectFileHandler}/>
-            </S.DropArea>
+                <S.DropArea onDragStart={dragStartHandler}
+                            onDragLeave={dragLeaveHandler}
+                            onDragOver={dragStartHandler}
+                            onDrop={onDrop}
+                            isSolidLine={!isDrag}
+                            error={errorSample}
+                            success={success}>
+                    {success ? (
+                        <S.DragContainer>
+                            <S.Icon status={errorSample} big className='fas fa-check-circle'/>
+                            <S.Button status={errorSample} onClick={closeSuccess}>Close</S.Button>
+                        </S.DragContainer>
+                    ) : errorSample ? (
+                        <S.DragContainer>
+                            <S.Icon status={errorSample} big className='fas fa-redo'/>
+                            <S.Button status={errorSample} onClick={openDirectory}>File Upload</S.Button>
+                            <S.DragText status={errorSample}>{condition}</S.DragText>
+                        </S.DragContainer>
+                    ) : (isDrag ? (
+                                <S.DragContainer>
+                                    <S.IconSimple big className='fas fa-file-csv'/>
+                                    <S.Button onClick={openDirectory}>File Upload</S.Button>
+                                    <S.DragTextH2>Drag for Uploading file</S.DragTextH2>
+                                </S.DragContainer>)
+                            :
+                            <S.DragTextH2>
+                                Drag for Uploading file
+                            </S.DragTextH2>
+                    )}
+                    <S.Input type='file'
+                             multiple={false}
+                             accept={FILE_TYPE}
+                             ref={inputRef}
+                             onChange={selectFileHandler}/>
+                </S.DropArea>
             {
                 file !== null ? (
                     <S.InstructionContainer>
@@ -129,7 +136,7 @@ const DragDrop = () => {
                                         <S.List>{text}</S.List>
                                         {idx === 0 ? (
                                             <S.RulesContainer>
-                                                <S.Icon className='fas fa-file-csv'/>
+                                                <S.Icon  className='fas fa-file-csv'/>
                                                 <S.RulesText>Download example CSV</S.RulesText>
                                             </S.RulesContainer>
                                         ) : null}

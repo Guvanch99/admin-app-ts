@@ -19,8 +19,8 @@ const MainNavigation = () => {
         <S.Menu>
             {
                 navLinks.map(({name, url, color}, idx) => (
-                    <S.List color={{background:color}} key={idx}>
-                        <S.Link onClick={idx === 3 ? logOutAdmin : null} to={url}>{name}</S.Link>
+                    <S.List color={color} key={idx}>
+                        <S.Link onClick={idx === 3 ? logOutAdmin : undefined} to={url}>{name}</S.Link>
                     </S.List>
                 ))
             }

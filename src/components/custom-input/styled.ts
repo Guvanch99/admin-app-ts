@@ -2,6 +2,13 @@ import styled from "styled-components";
 
 import {grid} from "../../styles/mixin.styled";
 import {handleColorType} from "../../styles/functions.styled";
+import {IColor} from "../../interface/theme.interface";
+
+interface IInput{
+  layout:string
+  bg:string
+  theme:IColor
+}
 
 export const Container = styled.div`
   ${grid({justify: 'center', align: "center"})};
@@ -15,7 +22,7 @@ export const Label = styled.label`
   text-align: center;
 `
 
-export const Input = styled.input`
+export const Input = styled.input<IInput>`
   margin: .4rem 0;
   font-size: 1.6em;
   line-height: 1.4rem;

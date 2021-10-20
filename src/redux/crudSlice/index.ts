@@ -5,21 +5,23 @@ import {IGallery, IOrders, IProducts, IUsers} from "../../interface/global.inter
 import {ALL_PRODUCTS, NEXT_ID,} from "../../constants/variables.constants";
 import {ROUTER_FEATURED_PRODUCTS, ROUTER_GALLERY, ROUTER_USERS} from "../../constants/routers.constants";
 
-interface ICrudState{
-    products?:IProducts[]
-    users?:IUsers[]
-    featuredProducts?:IProducts[]
-    gallery?:IGallery[]
-    isModal:boolean
-    orders?:IOrders[]
-    state:boolean
+interface ICrudState {
+    products?: [string, IProducts[]]
+    users?: [string,IUsers[]]
+    featuredProducts?: [string, IProducts[]]
+    gallery?: [string, IGallery[]]
+    isModal: boolean
+    orders?: IOrders[]
+    state: boolean
 }
 
-const initialState:ICrudState= {
-    products: [],
-    users: [],
-    featuredProducts: [],
-    gallery: [],
+//TODO WTF
+
+const initialState: ICrudState = {
+    products: ['', []],
+    users: ['', []],
+    featuredProducts: ['', []],
+    gallery: ['', []],
     isModal: false,
     orders: [],
     state: false
@@ -56,7 +58,7 @@ const CrudSlice = createSlice({
             state.products = [payload.config.url.split('?')[0], payload.data, payload.headers['x-total-count']]
         },
         setUsers(state, {payload}) {
-            state.users =[payload.config.url.split('?')[0], payload.data, payload.headers['x-total-count']]
+            state.users = [payload.config.url.split('?')[0], payload.data, payload.headers['x-total-count']]
         },
         deleteData(state, {payload}) {
             switch (payload.url) {

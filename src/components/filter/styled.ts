@@ -3,15 +3,39 @@ import styled from "styled-components";
 import {flex} from "../../styles/mixin.styled";
 import {flexCenter} from "../../styles/flex.styled";
 
-import {TTheme} from "../../styles/Theme.styled";
+import {IColor} from "../../interface/theme.interface";
 
-export const Tag = styled.div`
+interface IVisibleProps {
+    isVisible: boolean
+}
+
+interface ITheme {
+    theme: IColor
+}
+
+interface IButtonFilter extends ITheme {
+    bg: boolean
+}
+
+interface IVisibleTheme extends ITheme {
+    isVisible: boolean
+}
+
+interface IOrange extends ITheme {
+    orange?: boolean
+}
+
+interface IErrorTheme extends ITheme {
+    error: string
+}
+
+export const Tag = styled.div<IVisibleProps>`
   opacity: ${({isVisible}) => isVisible ? 1 : 0};
   transition: opacity .4s ease-in;
   margin: 0.6rem 0;
 `
 
-export const TagButton = styled.button`
+export const TagButton = styled.button<ITheme>`
   padding: 0.4rem;
   background: ${({theme}) => theme.colors.secondaryColor};
   border: 1px solid ${({theme}) => theme.colors.blueColor};
@@ -39,9 +63,9 @@ export const FilterDivider = styled.div`
   flex-wrap: wrap;
 `
 
-export const ButtonFilter = styled.button`
+export const ButtonFilter = styled.button<IButtonFilter>`
   ${flex({justify: 'space-evenly', align: 'center'})};
-  background: ${({bg, theme}:{bg:boolean, theme: TTheme}) => bg ? theme.colors.secondaryColor : theme.colors.whiteColor};
+  background: ${({bg, theme}) => bg ? theme.colors.secondaryColor : theme.colors.whiteColor};
   color: ${({bg, theme}) => bg ? theme.colors.whiteColor : theme.colors.secondaryColor};
   width: 5.5rem;
   height: 3rem;
@@ -51,7 +75,7 @@ export const ButtonFilter = styled.button`
   font-weight: bolder;
 `
 
-export const FilterOptionContainer = styled.div`
+export const FilterOptionContainer = styled.div<IVisibleTheme>`
   margin-top: .2rem;
   opacity: ${({isVisible}) => isVisible ? 1 : 0};
   ${flex({justify: 'space-evenly', align: 'center'})};
@@ -69,7 +93,7 @@ export const FilterInfoContainer = styled.div`
   ${flexCenter};
 `
 
-export const RadioContainer = styled.div`
+export const RadioContainer = styled.div<ITheme>`
   width: 18rem;
   height: 2rem;
   ${flex({justify: 'flex-start', align: 'center'})};
@@ -91,19 +115,19 @@ export const Icon = styled.i`
   font-size: 1em;
 `
 
-export const OrdersList = styled.ul`
+export const OrdersList = styled.ul<IVisibleTheme>`
   color: ${({theme}) => theme.colors.whiteColor};
   margin-top: 2rem;
   opacity: ${({isVisible}) => isVisible ? 1 : 0};
   transition: opacity .4s ease-in;
 `
 
-export const UserName = styled.h1`
+export const UserName = styled.h1<IOrange>`
   color: ${({orange, theme}) => orange ? theme.colors.orangeColor : theme.colors.whiteColor};
   font-size: 1.6em;
 `
 
-export const TotalAmount = styled.h2`
+export const TotalAmount = styled.h2<IOrange>`
   color: ${({orange, theme}) => orange ? theme.colors.orangeColor : theme.colors.whiteColor};
   font-size: 1.4em;
 `
@@ -118,7 +142,7 @@ export const InputContainer = styled.div`
   ${flex({justify: 'space-around', align: 'center'})};
 `
 
-export const Dash = styled.div<TTheme>`
+export const Dash = styled.div<ITheme>`
   width: 2rem;
   height: 0;
   border: 1px solid ${({theme}) => theme.colors.secondaryColor};
@@ -143,7 +167,7 @@ export const LabelInput = styled.label`
   font-size: 1.4em;
 `
 
-export const InputDate = styled.input`
+export const InputDate = styled.input<IErrorTheme>`
   width: 6rem;
   height: 2rem;
   border: none;
@@ -157,7 +181,7 @@ export const InputDate = styled.input`
   }
 `
 
-export const ButtonApply = styled.button<TTheme>`
+export const ButtonApply = styled.button<ITheme>`
   align-self: end;
   margin: 2rem 1rem .4rem 0;
   padding: .8rem 1rem;
@@ -177,7 +201,7 @@ export const ButtonApply = styled.button<TTheme>`
   }
 `
 
-export const ErrorText = styled.p<TTheme>`
+export const ErrorText = styled.p<ITheme>`
   color: ${({theme}) => theme.colors.lighterRedColor};
   font-size: 1em;
   margin-bottom: -.64rem;

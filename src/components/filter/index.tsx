@@ -1,4 +1,4 @@
-import {memo, useEffect, useMemo, useState} from "react";
+import {ChangeEvent, memo, useEffect, useMemo, useState} from "react";
 import moment from "moment";
 
 import {useAppDispatch, useAppSelector} from "../../hooks/redux";
@@ -50,7 +50,7 @@ const Filter = () => {
         dispatch(getOrder())
     }, [dispatch])
 
-    const updateSort = ({target: {value}}) => {
+    const updateSort = ({target: {value}}:ChangeEvent<HTMLInputElement>) => {
         dispatch(onChange({value}))
         setErrors({
             from: '',
@@ -64,7 +64,7 @@ const Filter = () => {
         setTag(true)
         dispatch(filterTransactions({from, to}))
     }
-    const handleChange = ({target: {value, name}}) => {
+    const handleChange = ({target: {value, name}}:ChangeEvent<HTMLInputElement>) => {
         let slashedValue = insertSlash(value)
         setErrors({
             from: '',
@@ -194,7 +194,7 @@ const Filter = () => {
                                                                  maxLength={10}
                                                                  placeholder="DD/MM/YYYY"
                                                                  onBlur={functionValid}
-                                                                 error={error || both}
+                                                                 error={error||both}
                                                     />
                                                     {error ? <S.ErrorText>{error}</S.ErrorText> : null}
                                                 </S.InputDateContainer>

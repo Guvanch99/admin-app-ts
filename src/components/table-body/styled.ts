@@ -4,7 +4,11 @@ import {handleColorType} from "../../styles/functions.styled";
 
 import {gridJusItems} from "../../styles/mixin.styled";
 
-export const Icon = styled.i`
+interface IColor{
+  color:string
+}
+
+export const Icon = styled.i<IColor>`
   color: ${({color}) => handleColorType(color)};
   font-size: 1.4rem;
   margin-left: 0.2rem;

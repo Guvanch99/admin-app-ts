@@ -1,4 +1,4 @@
-import {FC,memo} from 'react'
+import {FC, memo, ReactNode} from 'react'
 import {useState} from "react";
 
 import * as S from './styled'
@@ -6,6 +6,7 @@ import * as S from './styled'
 interface IToolTip{
     text:string
     position:string
+    children:ReactNode
 }
 
 const ToolTip:FC<IToolTip> = ({children, text, position}) => {

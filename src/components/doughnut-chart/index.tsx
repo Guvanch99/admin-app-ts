@@ -13,7 +13,8 @@ import * as S from './styled'
 
 const DoughnutChart = () => {
     const {orders} = useAppSelector(state => state.crud)
-
+    //TODO check type of orders
+    // @ts-ignore
     const circleElements = getTotals(orders)
     const {total, products} = circleElements
 

@@ -1,4 +1,4 @@
-import {useMemo, useState} from "react"
+import {ChangeEvent, useMemo, useState} from "react"
 import {useHistory} from "react-router-dom"
 
 import {CustomInput,CustomButton} from '../../components'
@@ -67,12 +67,12 @@ const Login = () => {
         [adminName, password, errors.adminName, errors.password]
     )
 
-    const handleChange = ({target:{value,name}}) => {
+    const handleChange = ({target:{value,name}}:ChangeEvent<HTMLInputElement>) => {
         errors[name] && setErrors({...errors, [name]: ''})
         setAdminLogin({...adminLogin, [name]: value})
     }
 
-    const login = (e) => {
+    const login = (e:MouseEvent) => {
         e.preventDefault()
         const adminNameUpperCase = upperCaseString(adminName)
         const passwordUpperCase = upperCaseString(password)
@@ -105,7 +105,7 @@ const Login = () => {
                         />
                     )
                 )}
-                <CustomButton onclick={login} name='Submit' disabled={isButtonDisabled} type='submit'/>
+                <CustomButton onclick={login} name='Submit' disabled={isButtonDisabled}/>
             </S.Form>
         </S.Container>
     )

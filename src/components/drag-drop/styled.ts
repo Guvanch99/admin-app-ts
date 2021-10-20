@@ -3,13 +3,36 @@ import styled from 'styled-components'
 import {gridJusItems} from "../../styles/mixin.styled";
 import {flexCenter} from "../../styles/flex.styled";
 
+import {IColor} from "../../interface/theme.interface";
+
+interface IStatus {
+    theme: IColor
+    status?: boolean
+}
+
+//TODO think of type
+// interface IDropArea {
+//     error: boolean
+//     isSolidLine: boolean
+//     success: boolean
+//     theme: IColor
+// }
+
+interface IBigSimple {
+    big?: boolean
+}
+
+interface IBig extends IStatus {
+    big?: boolean
+}
+
 export const Container = styled.div`
   margin: 2rem;
   ${gridJusItems({justify: 'center', align: 'center'})};
   color: ${({theme}) => theme.colors.whiteColor};
 `
 
-export const Button = styled.button`
+export const Button = styled.button<IStatus>`
   margin: 1.6rem 0;
   padding: .4rem .6rem;
   border-radius: 3rem;
@@ -38,7 +61,7 @@ export const InstructionContainer = styled.div`
   ${gridJusItems({justify: 'start', align: 'center'})};
 `
 
-export const DropArea = styled.div`
+export const DropArea = styled.div<any>`
   width: 60vw;
   height: 60vh;
   border: .2rem ${({isSolidLine}) => isSolidLine ? 'solid' : 'dashed'} ${({theme}) => theme.colors.whiteColor};
@@ -52,19 +75,19 @@ export const DragContainer = styled.div`
   ${gridJusItems({justify: 'center', align: 'center'})};
 `
 
-export const DragText = styled.h1`
+export const DragText = styled.h1<IStatus>`
   font-size: 2.2em;
   color: ${({status, theme}) => status ? theme.colors.lighterRedColor : null};
 `
 
-export const Icon = styled.i`
+export const Icon = styled.i<IBig>`
   font-size: ${({big}) => big ? '5rem' : '1rem'};
   color: ${({status, theme}) => status ? theme.colors.lighterRedColor : theme.colors.greenSuccessColor};
 `
-export const IconSimple=styled.i`
+export const IconSimple = styled.i<IBigSimple>`
   font-size: ${({big}) => big ? '5rem' : '1rem'};
 `
-export const DragTextH2=styled.h2`
+export const DragTextH2 = styled.h2`
   font-size: 2em;
 `
 export const InstructionText = styled.h1`

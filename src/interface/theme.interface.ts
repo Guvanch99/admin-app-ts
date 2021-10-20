@@ -1,4 +1,4 @@
-interface IColor  {
+export interface IColor  {
     secondaryColor: string
     mainColor: string
     whiteColor: string

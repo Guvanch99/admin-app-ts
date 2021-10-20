@@ -23,7 +23,7 @@ export interface IUsers {
     userName: string
     email: string
     password: string
-    restrictedPromoCodes?: string[]
+    restrictedPromoCodes: string[]
     bonus: number
 }
 
@@ -31,6 +31,7 @@ export interface IUser{
     userName:string
     email:string
 }
+
 export interface ICart extends IProducts{
     amount:number
     subTotal:number
@@ -59,3 +60,4 @@ timeOrder:string
     totalAmount:number
     id:number
 }
+

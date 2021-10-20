@@ -5,32 +5,37 @@ import {CustomButton, TableBody, TableHeader, Pagination} from "../index"
 import {LIMIT_ITEMS} from "../../constants/variables.constants";
 
 import * as S from "./styled"
+import {IGallery, IProducts, IUsers} from "../../interface/global.interface";
 
 interface ICustomTable {
-    data: IDataValue
-    setCurrentPage: () => number
+    data: [string, IProducts | IGallery | IUsers]
     currentPage: number
+    setCurrentPage: (value: number) => void
 }
 
 const CustomTable: FC<ICustomTable> = ({data, setCurrentPage, currentPage}) => {
-    const refTable = useRef<HTMLElement|null>(null);
-
-    const countItems = Math.ceil(data[2] / LIMIT_ITEMS)
+    const refTable = useRef<HTMLTableElement>(null);
+    //TODO get type
+    //@ts-ignore
+    const countItems: number = Math.ceil(data[2] / LIMIT_ITEMS)
 
     const createExcel = () => {
         let csv = [];
+        let rows: NodeListOf<HTMLTableRowElement>
 
-        let rows = refTable.current.querySelectorAll("tr");
+        if (refTable && refTable.current) {
+            rows = refTable.current.querySelectorAll("tr");
+            for (let i = 0; i < rows.length; i++) {
+                let row = [], cols: NodeListOf<HTMLTableRowElement> = rows[i].querySelectorAll("td, th");
 
-        for (let i = 0; i < rows.length; i++) {
-            let row = [], cols = rows[i].querySelectorAll("td, th");
+                for (let j = 0; j < 2; j++) {
+                    row.push(cols[j].innerText);
+                }
 
-            for (let j = 0; j < 2; j++) {
-                row.push(cols[j].innerText);
+                csv.push(row.join(","));
             }
-
-            csv.push(row.join(","));
         }
+
 
         let csv_string = csv.join("\n");
         let csv_blob = new Blob([csv_string], {type: "text/csv"});
