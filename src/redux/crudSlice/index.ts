@@ -1,19 +1,33 @@
 import {createSlice} from "@reduxjs/toolkit";
 
+import {IGallery, IOrders, IProducts, IUsers} from "../../interface/global.interface";
+
 import {ALL_PRODUCTS, NEXT_ID,} from "../../constants/variables.constants";
 import {ROUTER_FEATURED_PRODUCTS, ROUTER_GALLERY, ROUTER_USERS} from "../../constants/routers.constants";
 
+interface ICrudState{
+    products?:IProducts[]
+    users?:IUsers[]
+    featuredProducts?:IProducts[]
+    gallery?:IGallery[]
+    isModal:boolean
+    orders?:IOrders[]
+    state:boolean
+}
+
+const initialState:ICrudState= {
+    products: [],
+    users: [],
+    featuredProducts: [],
+    gallery: [],
+    isModal: false,
+    orders: [],
+    state: false
+}
+
 const CrudSlice = createSlice({
     name: 'crud',
-    initialState: {
-        products: [],
-        users: [],
-        featuredProducts: [],
-        gallery: [],
-        isModal: false,
-        orders: [],
-        state: false
-    },
+    initialState,
     reducers: {
         addNewData(state, {payload: {newData}}) {
             const product = {id: state.products[1].length + NEXT_ID, ...newData,}

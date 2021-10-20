@@ -9,14 +9,17 @@ import {deleteItem} from "../../redux/crudSlice";
 
 import {ROUTER_DATA_EDIT} from "../../constants/routers.constants";
 
+import {ISingleData} from "../../interface/global.interface";
+
 import * as S from "./styled"
+
 
 const TableBody = ({data}) => {
     const url = data[0]
 
     const dispatch = useAppDispatch()
 
-    const handleDelete = (id, url) => {
+    const handleDelete = ((id, url):ISingleData) => {
         const prop = {id, url}
         dispatch(deleteItem(prop))
     }

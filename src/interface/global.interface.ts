@@ -23,7 +23,7 @@ export interface IUsers {
     userName: string
     email: string
     password: string
-    restrictedPromoCodes: string[]
+    restrictedPromoCodes?: string[]
     bonus: number
 }
 
