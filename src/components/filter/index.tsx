@@ -1,9 +1,12 @@
-import {ChangeEvent, memo, useEffect, useMemo, useState} from "react";
+import {ChangeEvent, FC, memo, useEffect, useMemo, useState} from "react";
+import {useDispatch} from "react-redux";
 import moment from "moment";
 
-import {useAppDispatch, useAppSelector} from "../../hooks/redux";
+import {IDate} from "../../model/interface";
 
-import {getOrder} from "../../redux/crudSlice";
+import {useAppSelector} from "../../hooks/redux";
+
+import {getOrders} from "../../redux/crudSlice";
 
 import {onChange, filterTransactions, filterRemove} from "../../redux/filterSlice";
 
@@ -15,19 +18,13 @@ import {PERIOD} from "../../constants/variables.constants";
 
 import * as S from './styled'
 
-
 const {filterOptions} = DATA
 
-interface IDate{
-    from :string,
-    to:string
+interface IDateError extends IDate {
+    both: string
 }
 
-interface IDateError extends IDate{
-both:string
-}
-
-const Filter = () => {
+const Filter: FC = () => {
     const [isVisibleFilter, setIsVisibleFilter] = useState<boolean>(false)
     const [inputDate, setInputDate] = useState<IDate>({
         from: '',
@@ -41,16 +38,16 @@ const Filter = () => {
     const [tag, setTag] = useState<boolean>(false)
     const {sort, filteredOrders} = useAppSelector(state => state.filter)
 
-    const dispatch = useAppDispatch()
+    const dispatch = useDispatch()
 
     const {from, to} = inputDate
     const {both} = errors
 
     useEffect(() => {
-        dispatch(getOrder())
+        dispatch(getOrders())
     }, [dispatch])
 
-    const updateSort = ({target: {value}}:ChangeEvent<HTMLInputElement>) => {
+    const updateSort = ({target: {value}}: ChangeEvent<HTMLInputElement>) => {
         dispatch(onChange({value}))
         setErrors({
             from: '',
@@ -64,7 +61,7 @@ const Filter = () => {
         setTag(true)
         dispatch(filterTransactions({from, to}))
     }
-    const handleChange = ({target: {value, name}}:ChangeEvent<HTMLInputElement>) => {
+    const handleChange = ({target: {value, name}}: ChangeEvent<HTMLInputElement>) => {
         let slashedValue = insertSlash(value)
         setErrors({
             from: '',
@@ -82,8 +79,8 @@ const Filter = () => {
         dispatch(filterRemove())
     }
     const dateFromChecker = () => {
-        const fromDate = moment(from, "DD-MM-YYYY")
-        const today = moment()
+        const fromDate: moment.Moment = moment(from, "DD-MM-YYYY")
+        const today: moment.Moment = moment()
 
         if (!fromDate.isValid() || !(fromDate <= today)) {
             setErrors({
@@ -93,11 +90,11 @@ const Filter = () => {
         }
     }
     const dateToChecker = () => {
-        const fromDate = moment(from, "DD-MM-YYYY")
-        const toDate = moment(to, "DD-MM-YYYY")
-        const today = moment()
-        const isAfter = moment(fromDate).isAfter(toDate);
-        const isSame = moment(fromDate).isSame(toDate)
+        const fromDate: moment.Moment = moment(from, "DD-MM-YYYY")
+        const toDate: moment.Moment = moment(to, "DD-MM-YYYY")
+        const today: moment.Moment = moment()
+        const isAfter: boolean = moment(fromDate).isAfter(toDate);
+        const isSame: boolean = moment(fromDate).isSame(toDate)
         if (!fromDate.isValid() || !(toDate <= today))
             setErrors({
                 ...errors,
@@ -148,7 +145,7 @@ const Filter = () => {
     )
 
     return (
-        <S.Filter>
+        <div>
             <S.Tag isVisible={tag}>
                 <S.TagButton onClick={filterRemoveHandler}>
                     {`${sort} ${from}-${to}`}
@@ -194,7 +191,7 @@ const Filter = () => {
                                                                  maxLength={10}
                                                                  placeholder="DD/MM/YYYY"
                                                                  onBlur={functionValid}
-                                                                 error={error||both}
+                                                                 error={error || both}
                                                     />
                                                     {error ? <S.ErrorText>{error}</S.ErrorText> : null}
                                                 </S.InputDateContainer>
@@ -218,7 +215,7 @@ const Filter = () => {
                         <S.TotalAmount orange>Money:</S.TotalAmount>
                     </S.InfoContainer>
                     {
-                        filteredOrders.map(({totalAmount, user: {userName}}, idx) => (
+                        filteredOrders.map(({totalAmount, user: {userName}}, idx: number) => (
                                 <S.InfoContainer key={idx}>
                                     <S.UserName>{userName}</S.UserName>
                                     <S.TotalAmount>{totalAmount} rub</S.TotalAmount>
@@ -229,7 +226,7 @@ const Filter = () => {
                     }
                 </S.OrdersList>
             </S.FilterDivider>
-        </S.Filter>
+        </div>
     )
 }
 

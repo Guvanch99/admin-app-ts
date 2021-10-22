@@ -1,6 +1,6 @@
 import {
     ROUTER_FEATURED_PRODUCTS,
-    ROUTER_FILEUPLOAD,
+    ROUTER_FILE_UPLOAD,
     ROUTER_GALLERY,
     ROUTER_LOGIN,
     ROUTER_PRODUCTS,
@@ -9,30 +9,31 @@ import {
     ROUTER_USERS
 } from "./constants/routers.constants"
 
-interface INavLinksValues{
-    name:string,
-    url:string,
-    color:string
-}
-interface IContainer{
-    color:string
-    text:string
+interface INavLinksValues {
+    name: string,
+    url: string,
+    color: string
 }
 
-interface IInstructions{
-    text:string
+interface IContainer {
+    color: string
+    text: string
 }
 
-interface IData{
-    navLinks:INavLinksValues[]
-    tableHeaderRow:string[]
+interface IInstructions {
+    text: string
+}
+
+interface IData {
+    navLinks: INavLinksValues[]
+    tableHeaderRow: string[]
     selectOptionType: string[]
-    typeContainer:IContainer[]
-    instructions:IInstructions[]
-    filterOptions:string[]
+    typeContainer: IContainer[]
+    instructions: IInstructions[]
+    filterOptions: string[]
 }
 
-export const DATA:IData = {
+export const DATA: IData = {
     navLinks: [
         {
             name: 'Products',
@@ -61,7 +62,7 @@ export const DATA:IData = {
         },
         {
             name: 'File-Upload',
-            url: ROUTER_FILEUPLOAD,
+            url: ROUTER_FILE_UPLOAD,
             color: '#3498db'
         },
         {
@@ -107,6 +108,6 @@ export const DATA:IData = {
         }
     ],
 
-    filterOptions: ['Today', 'Last Week', 'Two Weeks', '1 Month','2 Month','Period']
+    filterOptions: ['Today', 'Last Week', 'Two Weeks', '1 Month', '2 Month', 'Period']
 
 }

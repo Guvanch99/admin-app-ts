@@ -14,6 +14,7 @@ export const GlobalStyles = createGlobalStyle`
     font-size: 62.5%;
     overflow-x: hidden;
     font-family: 'Roboto', sans-serif;
+    background: #1d3c45;
   }
   ul {
     list-style: none;

@@ -1,12 +1,12 @@
-import {FC, useEffect, useMemo, Component} from 'react'
+import React, {FC, useEffect, useMemo, Component} from 'react'
 import {createPortal} from 'react-dom'
 
+//TODO think of Component Portal
 interface IPortal {
-    component: typeof Component
     nameOfClass: string
 }
 
-const Portal: FC<IPortal> = ({component: ComponentPortal, nameOfClass, ...rest}) => {
+const Portal: FC<IPortal> = ({children, nameOfClass}) => {
     const el = useMemo(() => document.createElement('div'), [])
     el.setAttribute('class', nameOfClass)
     useEffect(() => {
@@ -16,7 +16,7 @@ const Portal: FC<IPortal> = ({component: ComponentPortal, nameOfClass, ...rest})
         }
     }, [el])
 
-    return createPortal(<ComponentPortal {...rest} />, el)
+    return createPortal(children, el)
 }
 
 export default Portal

@@ -9,7 +9,6 @@ const Transaction = () => {
                 Select Filter date<br/>
                 Transaction will be shown if data exists
             </S.TransactionText>
-
             <Filter/>
         </S.Container>
     )

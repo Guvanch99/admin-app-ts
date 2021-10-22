@@ -1,9 +1,9 @@
-import {ChangeEvent, useMemo, useState} from "react"
+import {ChangeEvent, SyntheticEvent, useMemo, useState} from "react"
 import {useHistory} from "react-router-dom"
 
-import {CustomInput,CustomButton} from '../../components'
+import {CustomInput, CustomButton} from '../../components'
 
-import {useAppDispatch,useAppSelector} from "../../hooks/redux";
+import {useAppSelector} from "../../hooks/redux";
 
 import {loginAdmin, adminError} from "../../redux/adminSlice"
 
@@ -13,10 +13,11 @@ import {ADMIN_NAME, ADMIN_PASSWORD} from "../../constants/variables.constants"
 import {upperCaseString} from "../../utils"
 
 import * as S from "./styled"
+import {useDispatch} from "react-redux";
 
-interface ILogin{
-    adminName:string
-    password:string
+interface ILogin {
+    adminName: string
+    password: string
 }
 
 const Login = () => {
@@ -31,7 +32,7 @@ const Login = () => {
     const {adminName, password} = adminLogin
 
     const history = useHistory()
-    const dispatch = useAppDispatch()
+    const dispatch = useDispatch()
     const {adminNotFound} = useAppSelector(state => state.admin)
 
     const isButtonDisabled = !adminName || !password || errors.adminName || errors.password
@@ -67,12 +68,12 @@ const Login = () => {
         [adminName, password, errors.adminName, errors.password]
     )
 
-    const handleChange = ({target:{value,name}}:ChangeEvent<HTMLInputElement>) => {
-        errors[name] && setErrors({...errors, [name]: ''})
+    const handleChange = ({target: {value, name}}: ChangeEvent<HTMLInputElement>) => {
+        setErrors({...errors, [name]: ''})
         setAdminLogin({...adminLogin, [name]: value})
     }
 
-    const login = (e:MouseEvent) => {
+    const login = (e: SyntheticEvent) => {
         e.preventDefault()
         const adminNameUpperCase = upperCaseString(adminName)
         const passwordUpperCase = upperCaseString(password)
@@ -105,7 +106,7 @@ const Login = () => {
                         />
                     )
                 )}
-                <CustomButton onclick={login} name='Submit' disabled={isButtonDisabled}/>
+                <CustomButton onclick={login} name='Submit' disabled={!!isButtonDisabled}/>
             </S.Form>
         </S.Container>
     )

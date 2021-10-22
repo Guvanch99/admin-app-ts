@@ -1,4 +1,4 @@
-import {useSelector} from "react-redux";
+import {FC} from "react";
 
 import {ToolTip} from "../index";
 
@@ -10,11 +10,9 @@ import {EXPECTED_INCOME} from "../../constants/variables.constants";
 
 import * as S from './styled'
 
-
-const DoughnutChart = () => {
+const DoughnutChart:FC = () => {
     const {orders} = useAppSelector(state => state.crud)
-    //TODO check type of orders
-    // @ts-ignore
+
     const circleElements = getTotals(orders)
     const {total, products} = circleElements
 
@@ -47,7 +45,7 @@ const DoughnutChart = () => {
                     products.map(({percent, remain, color, offSet}, idx) => (
                         <S.Circle key={idx} cx="21" cy="21" r="15.91549430918954"
                                   strokeDasharray={`${percent} ${remain}`}
-                                  stroke={color} strokeDashoffset={offSet}/>
+                                  stroke={color} strokeDashoffset={offSet.toString()}/>
                     ))
                 }
                 <g>

@@ -1,8 +1,11 @@
+import {IOrders} from "../model/interface";
+
 import {
     FIRST_SEGMENT_OFF_SET,
     HUNDRED_PERCENT,
 } from "../constants/variables.constants";
 import {REGEX_AFTER_DAY_SLASH, REGEX_AFTER_MONTH_SLASH} from "../constants/regex.constants";
+
 
 export const upperCaseString = (str:string) => str.trim().toUpperCase()
 
@@ -15,11 +18,11 @@ export const biteToMb = (number:number) => (number / Math.pow(1024, 2)).toFixed(
 
 export const insertSlash = (data:string) => data.replace(REGEX_AFTER_DAY_SLASH, '$1/$2').replace(REGEX_AFTER_MONTH_SLASH, '$1/$2')
 
-export const getTotals = (orders:[]) => {
+export const getTotals = (orders:IOrders[]) => {
     //taking all carts from orders and flatting array and get all types from array after with Set get unique values
     const uniqueTypes = Array.from(new Set(orders.map(({cart}) => cart).flat().map(({type}) => type)))
 
-    const objectDefault = uniqueTypes.reduce((acc, curr) => {
+    const objectDefault = uniqueTypes.reduce((acc: { [key: string]: number}, curr) => {
         acc[curr] = 0
         return acc
     }, {});
@@ -32,7 +35,7 @@ export const getTotals = (orders:[]) => {
     const uniqueSubtotal = Array.from(new Set(subTotalTypes))
     let arrayToObject = Object.assign({}, uniqueSubtotal[0]);
     let percents = Object.keys(arrayToObject).reduce((percent, type) => {
-        percent[type] = arrayToObject[type] * 1 / 5
+        percent[type] = arrayToObject[type] / 5
         return percent
     }, objectDefault)
 

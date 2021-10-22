@@ -10,7 +10,6 @@ const baseStyle = css`
     color: ${({theme}) => theme.colors.blueColor};
     transform: scale(1.02);
   }
-;
 `
 
 export const Button = styled.button`
@@ -20,7 +19,7 @@ export const Button = styled.button`
   margin-top: -0.4rem;
   margin-right: 1rem;
 
-  @media (max-width: ${({theme}) => theme.netbook} ) {
+  @media (max-width: ${({theme}) => theme.responsive.netbook} ) {
     display: grid;
     position: static;
     margin: 2rem auto;

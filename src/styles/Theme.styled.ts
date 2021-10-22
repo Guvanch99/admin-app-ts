@@ -1,6 +1,6 @@
-import {ITheme} from "../interface/theme.interface";
+import {DefaultTheme} from "styled-components";
 
-export const theme:ITheme = {
+export const theme: DefaultTheme = {
     colors: {
         secondaryColor: 'rgb(10, 10, 10)',
         mainColor: '#ab7a5f',
@@ -16,7 +16,9 @@ export const theme:ITheme = {
         plantColor: 'rgb(71, 95, 89)',
         orangeColor: '#ffa500'
     },
-    netbook: '64em',
-    tablet: '48em',
-    mobile: '30em'
+    responsive:{
+        netbook: '64em',
+        tablet: '48em',
+        mobile: '30em'
+    }
 }

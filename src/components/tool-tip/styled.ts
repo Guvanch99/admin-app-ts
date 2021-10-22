@@ -7,8 +7,8 @@ export const Container = styled.div`
   display: inline-block;
 `
 
-export const ToolTip:any = styled.span`
-  ${({position}:any) => handlePosition(position)};
+export const ToolTip: any = styled.span`
+  ${({position}: any) => handlePosition(position)};
   position: absolute;
   padding: 1em;
   border-radius: 1%;
@@ -16,7 +16,7 @@ export const ToolTip:any = styled.span`
   background-color: #EDEDED;
   font-size: 1em;
   box-sizing: border-box;
-  box-shadow: 1px 1px 10px ${({theme}) => theme.colors.grey};
+  box-shadow: 1px 1px 10px ${({theme}) => theme.colors.lighterGrayColor};
   z-index: 9999;
   height: auto;
   width: auto;

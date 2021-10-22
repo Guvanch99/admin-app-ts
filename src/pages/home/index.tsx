@@ -1,25 +1,26 @@
 import {useEffect} from "react"
+import {useDispatch} from "react-redux";
 
 import {MainNavigation, Spinner} from "../../components"
 
-import {useAppDispatch, useAppSelector} from "../../hooks/redux";
+import { useAppSelector} from "../../hooks/redux";
 
 import {getData} from "../../redux/crudSlice";
 
 import * as S from "./styled";
 
 const Home = () => {
-    const dispatch = useAppDispatch()
+    const dispatch = useDispatch()
 
     useEffect(() => {
         dispatch(getData())
     }, [dispatch])
 
-    const {gallery} = useAppSelector(state => state.crud)
+    const {status} = useAppSelector(state => state.crud)
 
     return (
         <S.Container>
-            {gallery.length > 0 ? <MainNavigation/> : <Spinner/>}
+            {status ? <Spinner/> : <MainNavigation/>}
         </S.Container>
     )
 }

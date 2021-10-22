@@ -3,16 +3,6 @@ import {NavLink} from "react-router-dom";
 
 import {grid} from "../../styles/mixin.styled";
 
-import {IColor} from "../../interface/theme.interface";
-
-interface IList {
-    color: string
-}
-
-interface ILink {
-    theme: IColor
-}
-
 export const Menu = styled.ul`
   width: 100%;
   height: 100vh;
@@ -22,7 +12,7 @@ export const Menu = styled.ul`
   grid-gap: 2rem;
 `
 
-export const List = styled.li<IList>`
+export const List = styled.li<{ color: string }>`
   ${grid({justify: 'center', align: 'center'})}
   width: 12rem;
   height: 12rem;
@@ -36,7 +26,7 @@ export const List = styled.li<IList>`
   }
 `
 
-export const Link = styled(NavLink)<ILink>`
+export const Link = styled(NavLink)`
   ${grid({justify: 'center', align: "center"})};
   width: 10rem;
   height: 10rem;

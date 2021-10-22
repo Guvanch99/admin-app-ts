@@ -1,6 +1,5 @@
 import {memo} from "react"
-
-import {useAppDispatch} from "../../hooks/redux";
+import {useDispatch} from "react-redux";
 
 import {logOut} from "../../redux/adminSlice"
 
@@ -11,7 +10,7 @@ import * as S from "./styled"
 const {navLinks} = DATA
 
 const MainNavigation = () => {
-    const dispatch = useAppDispatch()
+    const dispatch = useDispatch()
 
     const logOutAdmin = () => dispatch(logOut())
 

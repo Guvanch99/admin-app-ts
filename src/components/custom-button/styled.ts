@@ -1,10 +1,7 @@
 import styled from "styled-components";
 
-import {IColor} from "../../interface/theme.interface";
-
 interface IButton {
-    bg: boolean
-    theme?: IColor
+    bg: boolean|string
 }
 
 export const Button = styled.button<IButton>`

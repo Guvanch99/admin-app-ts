@@ -16,13 +16,6 @@ export const ChartLabel = styled.h1`
   color: ${({theme}) => theme.colors.whiteColor};
 `
 
-export const ColorBox = styled.div`
-  width: 1rem;
-  height: 1rem;
-  background: ${({color}) => color};
-  margin: 0 1rem;
-`
-
 export const InfoContainer = styled.div`
   width: 30vw;
   ${flex({justify: 'space-around', align: 'center'})};

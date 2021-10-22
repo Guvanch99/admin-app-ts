@@ -3,24 +3,15 @@ import styled from 'styled-components'
 import {gridJusItems} from "../../styles/mixin.styled";
 import {flexCenter} from "../../styles/flex.styled";
 
-import {IColor} from "../../interface/theme.interface";
-
 interface IStatus {
-    theme: IColor
     status?: boolean
 }
-
-//TODO think of type
+//TODO think of props type
 // interface IDropArea {
-//     error: boolean
-//     isSolidLine: boolean
-//     success: boolean
-//     theme: IColor
+//     error?: boolean
+//     isSolidLine?: boolean
+//     success?: boolean
 // }
-
-interface IBigSimple {
-    big?: boolean
-}
 
 interface IBig extends IStatus {
     big?: boolean
@@ -84,7 +75,7 @@ export const Icon = styled.i<IBig>`
   font-size: ${({big}) => big ? '5rem' : '1rem'};
   color: ${({status, theme}) => status ? theme.colors.lighterRedColor : theme.colors.greenSuccessColor};
 `
-export const IconSimple = styled.i<IBigSimple>`
+export const IconSimple = styled.i<{big:boolean}>`
   font-size: ${({big}) => big ? '5rem' : '1rem'};
 `
 export const DragTextH2 = styled.h2`

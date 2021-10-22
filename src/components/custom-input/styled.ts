@@ -2,12 +2,11 @@ import styled from "styled-components";
 
 import {grid} from "../../styles/mixin.styled";
 import {handleColorType} from "../../styles/functions.styled";
-import {IColor} from "../../interface/theme.interface";
 
-interface IInput{
-  layout:string
-  bg:string
-  theme:IColor
+interface IInput {
+    layout?: string | null
+    bg: string | undefined
+
 }
 
 export const Container = styled.div`
@@ -30,7 +29,7 @@ export const Input = styled.input<IInput>`
   border-bottom: 1px solid ${({layout, theme}) => layout ? theme.colors.lighterRedColor : theme.colors.lighterBlackColor};
   outline: none;
   width: 15rem;
-  background: ${({bg}) => handleColorType(bg)};
+  background: ${({bg}) => bg ? handleColorType(bg) : null};
   color: ${({theme}) => theme.colors.secondaryColor};
 
   &:disabled {

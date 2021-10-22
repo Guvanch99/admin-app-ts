@@ -1,11 +1,12 @@
-import {useEffect, useState} from "react";
+//Todo fix
+//@ts-nocheck
+import {ChangeEvent, FC, useEffect, useState} from "react";
+import {useDispatch} from "react-redux";
 import {useLocation, useHistory} from "react-router-dom";
 
 import {CustomButton, CustomInput, ModalPreview, Portal, ModalSuccess, PageBack} from "../../../components";
 
-import {useAppDispatch} from "../../../hooks/redux";
-
-import {updateItem} from "../../../redux/crudSlice";
+import {updateSingleData} from "../../../redux/crudSlice";
 
 import {isObjectValueEmpty} from "../../../utils";
 
@@ -18,10 +19,10 @@ import {ErrorGlobal} from "../styled";
 
 import * as S from '../styled'
 
-const Create = () => {
+const Create:FC = () => {
     const location = useLocation()
     const history = useHistory()
-    const dispatch = useAppDispatch()
+    const dispatch = useDispatch()
 
     const [error, setError] = useState(false)
     const [isModalPreview, setIsModalPreview] = useState(false)
@@ -34,12 +35,12 @@ const Create = () => {
         getSingleData({id, url}).then(({data}) => setSingleData(data))
     }, [id, url])
 
-    const handleChange = ({target: {name, value}}) => {
+    const handleChange = ({target: {name, value}}: ChangeEvent<HTMLInputElement>) => {
         setSingleData({...singleData, [name]: value})
         setError(false)
     }
 
-    const updateData = (e) => {
+    const updateData = (e: MouseEvent) => {
         e.preventDefault()
         if ((url === ROUTER_GALLERY)) {
             const props = {id, url, singleData}
@@ -48,7 +49,7 @@ const Create = () => {
         } else {
             if (REGEX_NUMBER.test(singleData.price) || REGEX_NUMBER.test(singleData.bonus)) {
                 const props = {id, url, singleData}
-                dispatch(updateItem(props))
+                dispatch(updateSingleData(props))
                 setIsModalSuccess(true)
             } else
                 setError(true)
@@ -58,7 +59,7 @@ const Create = () => {
 
     const toggleModalPreview = () => setIsModalPreview(!isModalPreview)
 
-    const closeModalSuccess = (e) => {
+    const closeModalSuccess = (e: MouseEvent) => {
         e.preventDefault()
         setIsModalSuccess(false)
         url === '/all-products' ? history.push(ROUTER_PRODUCTS) : history.push(url)
@@ -69,7 +70,6 @@ const Create = () => {
                      label={key}
                      disabled={key === 'id'}
                      type='text'
-                     autoComplete='off'
                      name={key}
                      value={singleData[key]}
                      placeholder={`Enter a ${key}`}
@@ -79,17 +79,21 @@ const Create = () => {
     return (
         <>
             {isModalPreview ?
-                <Portal component={ModalPreview} nameOfClass='modal-preview' toggleModalPreview={toggleModalPreview}
-                        data={singleData}/> : null}
+                <Portal nameOfClass='modal-preview'>
+                    <ModalPreview
+                        toggleModalPreview={toggleModalPreview}
+                        data={singleData}/>
+                </Portal> : null}
             {isModalSuccess ?
-                <Portal component={ModalSuccess} nameOfClass='modal-success' closeModalSuccess={closeModalSuccess}
-                        data={singleData}/> : null}
+                <Portal Component={ModalSuccess} nameOfClass='modal-success'>
+                    <ModalSuccess closeModalSuccess={closeModalSuccess} data={singleData}/>
+                </Portal> : null}
             <PageBack/>
             <S.FormEdit>
                 <S.EditMenuText>Edit Menu</S.EditMenuText>
                 {error ? <ErrorGlobal>Price must be Number</ErrorGlobal> : null}
                 {Inputs}
-                <S.ButtonContainer isPreview={singleData.src}>
+                <S.ButtonContainer>
                     <CustomButton onclick={updateData} disabled={isObjectValueEmpty(singleData)} name='Submit'
                                   type='submit'/>
                     {singleData.src ? <CustomButton bg onclick={toggleModalPreview} name='Preview'/> : null}

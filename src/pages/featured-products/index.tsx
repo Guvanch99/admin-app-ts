@@ -1,15 +1,27 @@
-import {CustomTable, PageBack} from "../../components"
+//Todo fix
+// @ts-nocheck
+import {FC} from "react";
+
+import {CustomTable, PageBack, Spinner} from "../../components"
 
 import {useAppSelector} from "../../hooks/redux";
 
-const FeaturedProducts = () => {
-    const {featuredProducts} = useAppSelector(state => state.crud)
+
+const FeaturedProducts:FC = () => {
+    const {status, featuredProducts} = useAppSelector(state => state.crud)
 
     return (
         <>
-            <PageBack/>
-            <CustomTable data={featuredProducts}/>
+            {
+                status ? <Spinner/> : (
+                    <>
+                        <PageBack/>
+                        <CustomTable data={featuredProducts}/>
+                    </>
+                )
+            }
         </>
+
     )
 }
 

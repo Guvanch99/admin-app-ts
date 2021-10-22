@@ -1,21 +1,34 @@
 import * as S from "./styled"
-import {FC} from "react";
+import {ChangeEvent, FC, ReactElement, ReactNode} from "react";
 
-interface ICustomInput{
-    name:string
-    value:string
-    label:string
-    error:string
-    type:string
-    onChange:()=>void
-    required:boolean
-    handleBlur:()=>void
-    disabled:boolean
-    bg:string
+interface ICustomInput {
+    name: string
+    value: string
+    label: string
+    error?: string | null
+    type: string
+    onChange?: ({target: {name, value}}: ChangeEvent<HTMLInputElement>) => void
+    required?: boolean
+    handleBlur?: () => void
+    disabled?: boolean
+    bg?: string|undefined,
+    placeholder?: string|undefined
 
 }
 
-const CustomInput:FC<ICustomInput> = ({name, value, label, error, type, onChange, required, handleBlur, disabled, bg}) => (
+const CustomInput: FC<ICustomInput> = ({
+                                           placeholder,
+                                           name,
+                                           value,
+                                           label,
+                                           error,
+                                           type,
+                                           onChange,
+                                           required,
+                                           handleBlur,
+                                           disabled,
+                                           bg
+                                       }) => (
     <S.Container>
         <S.Label htmlFor={name}>
             {label}
@@ -28,7 +41,7 @@ const CustomInput:FC<ICustomInput> = ({name, value, label, error, type, onChange
             value={value}
             onChange={onChange}
             autoComplete="off"
-            placeholder={label}
+            placeholder={placeholder || label}
             required={required}
             autoFocus={name === 'adminName'}
             onBlur={handleBlur}

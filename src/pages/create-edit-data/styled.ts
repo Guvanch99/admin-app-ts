@@ -14,17 +14,17 @@ export const EditMenuText = styled.h1`
   margin: 2rem auto;
 `
 
-export const ButtonContainer = styled.div`
+export const ButtonContainer = styled.div<{ isPreview: boolean|string }>`
   ${({isPreview}) => {
     if (isPreview) {
-        css`
+    return  css`
         ${grid({justify: 'space-around', align: 'center'})};
         grid-template-columns: 1fr 1fr;
         grid-gap: 2rem;
       `
     }
-}
-}
+  }
+  }
 `
 
 export const Select = styled.select`

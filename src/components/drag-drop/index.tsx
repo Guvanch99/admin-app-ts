@@ -1,4 +1,4 @@
-import React, {useState, useRef} from "react";
+import React, {useState, useRef, FC} from "react";
 
 import {biteToMb} from "../../utils";
 
@@ -15,7 +15,17 @@ interface IErrorState {
     condition: string
 }
 
-const DragDrop = () => {
+interface IFile{
+    0:{
+        name:string
+        lastModified:string
+        webkitRelativePath:string
+        type:string
+        size:number
+    }
+}
+
+const DragDrop:FC = () => {
     const [isDrag, setIsDrag] = useState<boolean>(true)
     const [success, setSuccess] = useState<boolean>(false)
     const [file, setFile] = useState< File | null>(null)
@@ -48,7 +58,6 @@ const DragDrop = () => {
         //TODO check dataTransfer type
         // @ts-ignore
         const {dataTransfer: {files}} = e
-        console.log("files", files)
         e.preventDefault()
         e.stopPropagation()
 
@@ -56,8 +65,11 @@ const DragDrop = () => {
             setError({errorSample: true, condition: 'Must be one File'})
         else if (files[0].type !== FILE_TYPE)
             setError({errorSample: true, condition: 'Must be excel format'})
-        else if (files[0].size < FIVE_MB)
+        else if (files[0].size >= FIVE_MB){
+            console.log(files[0].size)
             setError({errorSample: true, condition: 'Must be less than 5 MB'})
+        }
+
         else {
             setFile(files[0])
             setSuccess(true)

@@ -1,6 +1,6 @@
 import axios, {AxiosInstance} from 'axios'
 
-export const DB:AxiosInstance = axios.create({
+export const DB: AxiosInstance = axios.create({
     baseURL: process.env.REACT_APP_HOST,
     responseType: 'json',
     headers: {

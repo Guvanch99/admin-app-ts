@@ -4,6 +4,7 @@ import {flexCenter} from "../../styles/flex.styled";
 
 import {grid,flex} from "../../styles/mixin.styled";
 
+
 export const ModalWrapper = styled.div`
   ${flexCenter};
   width: 100%;
@@ -47,7 +48,7 @@ export const ModalPreviewInfo = styled.div`
 export const ModalPreviewName = styled.h1`
   font-size: 4em;
 
-  @media (max-width: ${({theme}) => theme.mobile}) {
+  @media (max-width: ${({theme}) => theme.responsive.mobile}) {
     font-size: 3em;
   }
 `
@@ -55,14 +56,14 @@ export const ModalPreviewName = styled.h1`
 export const ModalPreviewPrice = styled.h2`
   font-size: 3em;
 
-  @media (max-width: ${({theme}) => theme.mobile}) {
+  @media (max-width: ${({theme}) => theme.responsive.mobile}) {
     font-size: 2em;
   }
 `
 
 export const ModalPreviewDescription = styled.p`
   font-size: 3em;
-  @media (max-width: ${({theme}) => theme.mobile}) {
+  @media (max-width: ${({theme}) => theme.responsive.mobile}) {
     font-size: 2em;
   }
 `

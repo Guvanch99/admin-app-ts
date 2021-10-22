@@ -1,23 +1,24 @@
+//@ts-nocheck
 import {FC, useRef} from "react";
 
 import {CustomButton, TableBody, TableHeader, Pagination} from "../index"
 
+import {TData} from "../../model/type";
+
 import {LIMIT_ITEMS} from "../../constants/variables.constants";
 
 import * as S from "./styled"
-import {IGallery, IProducts, IUsers} from "../../interface/global.interface";
 
-interface ICustomTable {
-    data: [string, IProducts | IGallery | IUsers]
-    currentPage: number
-    setCurrentPage: (value: number) => void
+
+type TCustomTable = TData & {
+    currentPage?: number
+    setCurrentPage?: (value: number) => void
 }
 
-const CustomTable: FC<ICustomTable> = ({data, setCurrentPage, currentPage}) => {
+const CustomTable: FC<TCustomTable> = ({data, setCurrentPage, currentPage}) => {
     const refTable = useRef<HTMLTableElement>(null);
-    //TODO get type
-    //@ts-ignore
-    const countItems: number = Math.ceil(data[2] / LIMIT_ITEMS)
+
+    const countItems: number = Math.ceil(data.countData / LIMIT_ITEMS)
 
     const createExcel = () => {
         let csv = [];
@@ -43,7 +44,7 @@ const CustomTable: FC<ICustomTable> = ({data, setCurrentPage, currentPage}) => {
 
         let link = document.createElement('a');
         link.href = csv_href;
-        link.download = `${data[0].substring(1)}.csv`;
+        link.download = `${data.url.substring(1)}.csv`;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);

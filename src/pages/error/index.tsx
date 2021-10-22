@@ -1,4 +1,4 @@
-import {memo, useEffect} from "react"
+import {FC, memo, useEffect} from "react"
 import {useHistory} from "react-router-dom"
 
 import {ROUTER_HOME} from "../../constants/routers.constants"
@@ -6,7 +6,7 @@ import {ROUTER_HOME} from "../../constants/routers.constants"
 import * as S from "./styled"
 
 
-const Error = () => {
+const Error:FC = () => {
     const history = useHistory()
 
     useEffect(() => {

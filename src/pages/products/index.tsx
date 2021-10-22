@@ -1,19 +1,21 @@
 import {useEffect, useState} from "react";
+import {useDispatch} from "react-redux";
 
 import {CustomTable, PageBack, Spinner} from "../../components";
 
+import {getProducts} from "../../redux/crudSlice";
 
-import {useAppSelector,useAppDispatch} from "../../hooks/redux";
+import {useAppSelector} from "../../hooks/redux";
 
 import {ROUTER_DATA_ADD} from "../../constants/routers.constants";
 
 import * as S from "./styled"
-import {getProducts} from "../../redux/crudSlice";
+
 
 const Products = () => {
-    const {products} = useAppSelector(state => state.crud)
+    const {products, status} = useAppSelector(state => state.crud)
     const [currentPage, setCurrentPage] = useState<number>(1)
-    const dispatch = useAppDispatch()
+    const dispatch = useDispatch()
 
     useEffect(() => {
         dispatch(getProducts(currentPage))
@@ -22,7 +24,7 @@ const Products = () => {
     return (
         <>
             {
-                products.length > 0 ? (
+                status ? <Spinner/> : (
                     <div>
                         <PageBack/>
                         <S.AddLink to={ROUTER_DATA_ADD}>
@@ -30,7 +32,7 @@ const Products = () => {
                         </S.AddLink>
                         <CustomTable data={products} setCurrentPage={setCurrentPage} currentPage={currentPage}/>
                     </div>
-                ) : <Spinner/>
+                )
             }
         </>
     )

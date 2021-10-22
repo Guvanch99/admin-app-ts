@@ -1,9 +1,10 @@
-import {useState} from "react";
+//Todo fix
+//@ts-nocheck
+import {ChangeEvent, FC, SyntheticEvent, useState} from "react";
+import {useDispatch} from "react-redux";
 import {useHistory} from "react-router-dom";
 
 import {CustomButton, CustomInput, ModalPreview, ModalSuccess, PageBack, Portal} from "../../../components";
-
-import {useAppDispatch} from "../../../hooks/redux";
 
 import {addNewData} from "../../../redux/crudSlice";
 
@@ -19,14 +20,19 @@ import {DATA} from "../../../data";
 
 import * as S from '../styled'
 
-
-
 const {selectOptionType} = DATA
 
-const DataAdd = () => {
+interface IAddData {
+    name: string
+    src: string
+    description: string
+    price: string
+}
+
+const DataAdd:FC = () => {
     const history = useHistory()
 
-    const [addData, setAddData] = useState({
+    const [addData, setAddData] = useState<IAddData>({
         name: '',
         src: '',
         description: '',
@@ -37,19 +43,19 @@ const DataAdd = () => {
     const [addDataType, setAddDataType] = useState<string>('combo')
     const [isModalPreview, setIsModalPreview] = useState<boolean>(false)
     const [isModalSuccess, setIsModalSuccess] = useState<boolean>(false)
-    const dispatch = useAppDispatch()
+    const dispatch = useDispatch()
 
-    const handleChange = ({target: {name, value}}) => {
+    const handleChange = ({target: {name, value}}: ChangeEvent<HTMLInputElement>): void => {
         setAddData({...addData, [name]: value})
         setError(false)
     }
-    const handleChangeType = ({target: {value}}) => setAddDataType(value)
+    const handleChangeType = ({target: {value}}: ChangeEvent<HTMLSelectElement>) => setAddDataType(value)
     const toggleModalPreview = () => setIsModalPreview(!isModalPreview)
     const closeModalSuccess = () => {
         setIsModalSuccess(false)
         history.push(ROUTER_DATA_ADD)
     }
-    const createData = (e) => {
+    const createData = (e: SyntheticEvent) => {
         e.preventDefault()
         const {price} = addData
         if (REGEX_NUMBER.test(price)) {
@@ -68,9 +74,9 @@ const DataAdd = () => {
 
     }
     const Inputs = Object.keys(addData).map((key, idx) =>
-        <CustomInput key={idx} bg='orangeColor' label={key}
+        <CustomInput key={idx} bg='orangeColor'
+                     label={key}
                      type='text'
-                     autoComplete='off'
                      name={key}
                      value={addData[key]}
                      placeholder={`Enter a ${key}`}
@@ -88,20 +94,23 @@ const DataAdd = () => {
     return (
         <>
             {isModalPreview ?
-                <Portal component={ModalPreview} nameOfClass='modal-preview' toggleModalPreview={toggleModalPreview}
-                        data={addData}/> : null}
+                <Portal nameOfClass='modal-preview'>
+                    <ModalPreview
+                        toggleModalPreview={toggleModalPreview}
+                        data={singleData}/>
+                </Portal> : null}
             {isModalSuccess ?
-                <Portal component={ModalSuccess} nameOfClass='modal-success'
-                        closeModalSuccess={closeModalSuccess}/> : null}
+                <Portal Component={ModalSuccess} nameOfClass='modal-success'>
+                    <ModalSuccess closeModalSuccess={closeModalSuccess} data={singleData}/>
+                </Portal> : null}
             <PageBack/>
             <S.FormEdit>
                 <S.EditMenuText>Add Menu</S.EditMenuText>
                 {error ? <S.ErrorGlobal>Price must be Number</S.ErrorGlobal> : null}
                 {Inputs}
                 {Select}
-                <S.ButtonContainer isPreview={addData.src}>
-                    <CustomButton onclick={createData} disabled={isObjectValueEmpty(addData)} name='Submit'
-                                  type='submit'/>
+                <S.ButtonContainer>
+                    <CustomButton onclick={createData} disabled={isObjectValueEmpty(addData)} name='Submit'/>
                     {addData.src ? <CustomButton bg onclick={toggleModalPreview} name='Preview'/> : null}
                 </S.ButtonContainer>
             </S.FormEdit>

@@ -3,9 +3,9 @@ import styled from "styled-components";
 import {flexCenter} from "../../styles/flex.styled";
 
 export const CustomTableContainer = styled.div`
-  margin-top: 2rem;
   ${flexCenter};
   flex-direction: column;
+  margin-top: 2rem;
 
   &:first-child {
     margin-top: 0.2rem;

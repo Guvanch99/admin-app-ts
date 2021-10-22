@@ -3,39 +3,15 @@ import styled from "styled-components";
 import {flex} from "../../styles/mixin.styled";
 import {flexCenter} from "../../styles/flex.styled";
 
-import {IColor} from "../../interface/theme.interface";
 
-interface IVisibleProps {
-    isVisible: boolean
-}
 
-interface ITheme {
-    theme: IColor
-}
-
-interface IButtonFilter extends ITheme {
-    bg: boolean
-}
-
-interface IVisibleTheme extends ITheme {
-    isVisible: boolean
-}
-
-interface IOrange extends ITheme {
-    orange?: boolean
-}
-
-interface IErrorTheme extends ITheme {
-    error: string
-}
-
-export const Tag = styled.div<IVisibleProps>`
+export const Tag = styled.div<{ isVisible: boolean }>`
   opacity: ${({isVisible}) => isVisible ? 1 : 0};
   transition: opacity .4s ease-in;
   margin: 0.6rem 0;
 `
 
-export const TagButton = styled.button<ITheme>`
+export const TagButton = styled.button`
   padding: 0.4rem;
   background: ${({theme}) => theme.colors.secondaryColor};
   border: 1px solid ${({theme}) => theme.colors.blueColor};
@@ -54,16 +30,13 @@ export const IconTimes = styled.i`
   margin-left: 0.4rem;
 `
 
-export const Filter = styled.div`
-
-`
 export const FilterDivider = styled.div`
-  width: 50vw;
   ${flex({justify: 'space-around', align: 'center'})};
   flex-wrap: wrap;
+  width: 50vw;
 `
 
-export const ButtonFilter = styled.button<IButtonFilter>`
+export const ButtonFilter = styled.button<{ bg: boolean }>`
   ${flex({justify: 'space-evenly', align: 'center'})};
   background: ${({bg, theme}) => bg ? theme.colors.secondaryColor : theme.colors.whiteColor};
   color: ${({bg, theme}) => bg ? theme.colors.whiteColor : theme.colors.secondaryColor};
@@ -75,7 +48,7 @@ export const ButtonFilter = styled.button<IButtonFilter>`
   font-weight: bolder;
 `
 
-export const FilterOptionContainer = styled.div<IVisibleTheme>`
+export const FilterOptionContainer = styled.div<{ isVisible: boolean }>`
   margin-top: .2rem;
   opacity: ${({isVisible}) => isVisible ? 1 : 0};
   ${flex({justify: 'space-evenly', align: 'center'})};
@@ -93,7 +66,7 @@ export const FilterInfoContainer = styled.div`
   ${flexCenter};
 `
 
-export const RadioContainer = styled.div<ITheme>`
+export const RadioContainer = styled.div`
   width: 18rem;
   height: 2rem;
   ${flex({justify: 'flex-start', align: 'center'})};
@@ -115,19 +88,19 @@ export const Icon = styled.i`
   font-size: 1em;
 `
 
-export const OrdersList = styled.ul<IVisibleTheme>`
+export const OrdersList = styled.ul<{ isVisible: boolean }>`
   color: ${({theme}) => theme.colors.whiteColor};
   margin-top: 2rem;
   opacity: ${({isVisible}) => isVisible ? 1 : 0};
   transition: opacity .4s ease-in;
 `
 
-export const UserName = styled.h1<IOrange>`
+export const UserName = styled.h1<{ orange?: boolean }>`
   color: ${({orange, theme}) => orange ? theme.colors.orangeColor : theme.colors.whiteColor};
   font-size: 1.6em;
 `
 
-export const TotalAmount = styled.h2<IOrange>`
+export const TotalAmount = styled.h2<{ orange?: boolean }>`
   color: ${({orange, theme}) => orange ? theme.colors.orangeColor : theme.colors.whiteColor};
   font-size: 1.4em;
 `
@@ -142,7 +115,7 @@ export const InputContainer = styled.div`
   ${flex({justify: 'space-around', align: 'center'})};
 `
 
-export const Dash = styled.div<ITheme>`
+export const Dash = styled.div`
   width: 2rem;
   height: 0;
   border: 1px solid ${({theme}) => theme.colors.secondaryColor};
@@ -167,7 +140,7 @@ export const LabelInput = styled.label`
   font-size: 1.4em;
 `
 
-export const InputDate = styled.input<IErrorTheme>`
+export const InputDate = styled.input<{ error: boolean|string }>`
   width: 6rem;
   height: 2rem;
   border: none;
@@ -181,7 +154,7 @@ export const InputDate = styled.input<IErrorTheme>`
   }
 `
 
-export const ButtonApply = styled.button<ITheme>`
+export const ButtonApply = styled.button`
   align-self: end;
   margin: 2rem 1rem .4rem 0;
   padding: .8rem 1rem;
@@ -201,7 +174,7 @@ export const ButtonApply = styled.button<ITheme>`
   }
 `
 
-export const ErrorText = styled.p<ITheme>`
+export const ErrorText = styled.p`
   color: ${({theme}) => theme.colors.lighterRedColor};
   font-size: 1em;
   margin-bottom: -.64rem;
