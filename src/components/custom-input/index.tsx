@@ -3,7 +3,7 @@ import {ChangeEvent, FC, ReactElement, ReactNode} from "react";
 
 interface ICustomInput {
     name: string
-    value: string
+    value: string|number|string[]|undefined
     label: string
     error?: string | null
     type: string

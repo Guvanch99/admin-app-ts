@@ -1,11 +1,11 @@
 import {useEffect, useState} from "react";
+import {useDispatch} from "react-redux";
 
 import {CustomTable, PageBack, Spinner} from "../../components";
 
 import {useAppSelector} from "../../hooks/redux";
 
 import {getUsers} from "../../redux/crudSlice";
-import {useDispatch} from "react-redux";
 
 const Users = () => {
     const [currentPage, setCurrentPage] = useState<number>(1)

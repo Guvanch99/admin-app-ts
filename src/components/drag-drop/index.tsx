@@ -15,16 +15,6 @@ interface IErrorState {
     condition: string
 }
 
-interface IFile{
-    0:{
-        name:string
-        lastModified:string
-        webkitRelativePath:string
-        type:string
-        size:number
-    }
-}
-
 const DragDrop:FC = () => {
     const [isDrag, setIsDrag] = useState<boolean>(true)
     const [success, setSuccess] = useState<boolean>(false)
@@ -54,27 +44,25 @@ const DragDrop:FC = () => {
         setIsDrag(true)
     }
 
-    const onDrop = (e: DragEvent) => {
-        //TODO check dataTransfer type
-        // @ts-ignore
-        const {dataTransfer: {files}} = e
+    const onDrop = (e:DragEvent) => {
+
+        const files=e.dataTransfer?.files
         e.preventDefault()
         e.stopPropagation()
-
-        if (files.length > 1)
-            setError({errorSample: true, condition: 'Must be one File'})
-        else if (files[0].type !== FILE_TYPE)
-            setError({errorSample: true, condition: 'Must be excel format'})
-        else if (files[0].size >= FIVE_MB){
-            console.log(files[0].size)
-            setError({errorSample: true, condition: 'Must be less than 5 MB'})
-        }
-
-        else {
-            setFile(files[0])
-            setSuccess(true)
-            setError({errorSample: false, condition: ''})
-            setIsDrag(true)
+        if(files){
+            if (files.length > 1)
+                setError({errorSample: true, condition: 'Must be one File'})
+            else if ( files[0].type !== FILE_TYPE)
+                setError({errorSample: true, condition: 'Must be excel format'})
+            else if (files[0].size >= FIVE_MB){
+                setError({errorSample: true, condition: 'Must be less than 5 MB'})
+            }
+            else {
+                setFile(files[0])
+                setSuccess(true)
+                setError({errorSample: false, condition: ''})
+                setIsDrag(true)
+            }
         }
     }
 
@@ -101,7 +89,7 @@ const DragDrop:FC = () => {
                             onDragOver={dragStartHandler}
                             onDrop={onDrop}
                             isSolidLine={!isDrag}
-                            error={errorSample}
+                            status={errorSample}
                             success={success}>
                     {success ? (
                         <S.DragContainer>

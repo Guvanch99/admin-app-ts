@@ -1,10 +1,6 @@
 import styled from "styled-components";
 
-interface IButton {
-    bg: boolean|string
-}
-
-export const Button = styled.button<IButton>`
+export const Button = styled.button<{bg:boolean}>`
   color: ${({theme}) => theme.colors.whiteColor};
   background: ${({bg, theme}) => bg ? 'transparent' : theme.colors.greenSuccessColor};
   margin-bottom: 1rem;

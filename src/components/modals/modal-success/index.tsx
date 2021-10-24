@@ -1,11 +1,11 @@
-import {memo} from "react";
+import {memo, SyntheticEvent} from "react";
 
 import {CustomButton} from "../../index";
 
 import * as S from '../styled'
 
 interface IModalSuccess {
-    closeModalSuccess: () => void
+    closeModalSuccess: (e:SyntheticEvent) => void
 }
 
 const ModalSuccess = ({closeModalSuccess}: IModalSuccess) => (

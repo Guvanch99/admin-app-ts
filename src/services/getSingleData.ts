@@ -1,4 +1,5 @@
-import {DB} from '../core/axios'
-import {ISingleData} from "../model/interface";
+import axios from "axios";
 
-export const getSingleData = ({id, url}: ISingleData) => DB(`${url}/${id}`)
+import {IEditData, ISingleData} from "../model/interface";
+
+export const getSingleData = ({id, url}: ISingleData) => axios.get<IEditData>(`http://localhost:5000${url}/${id}`)

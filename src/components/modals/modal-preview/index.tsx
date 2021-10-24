@@ -2,21 +2,16 @@ import {FC, memo} from 'react'
 
 import {CustomButton} from "../../index";
 
+import { IEditData} from "../../../model/interface";
+
 import * as S from '../styled'
 
-interface IDataValue{
-    name:string
-    src:string
-    price:number,
-    description:string
+interface IModalPreview {
+    toggleModalPreview: () => void
+    data: IEditData
 }
 
-interface IModalPreview{
-    data:IDataValue,
-    toggleModalPreview:()=>void
-}
-
-const ModalPreview:FC<IModalPreview> = ({data, toggleModalPreview}) => {
+const ModalPreview: FC<IModalPreview> = ({data, toggleModalPreview}) => {
     const objectLength = Object.keys(data).length
     const {name, src, price, description} = data
 

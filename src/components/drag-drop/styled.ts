@@ -6,12 +6,6 @@ import {flexCenter} from "../../styles/flex.styled";
 interface IStatus {
     status?: boolean
 }
-//TODO think of props type
-// interface IDropArea {
-//     error?: boolean
-//     isSolidLine?: boolean
-//     success?: boolean
-// }
 
 interface IBig extends IStatus {
     big?: boolean
@@ -57,7 +51,7 @@ export const DropArea = styled.div<any>`
   height: 60vh;
   border: .2rem ${({isSolidLine}) => isSolidLine ? 'solid' : 'dashed'} ${({theme}) => theme.colors.whiteColor};
   border-radius: 5%;
-  border: ${({error, theme}) => error ? `.2rem solid ${theme.colors.lighterRedColor}` : null};
+  border: ${({status, theme}) => status ? `.2rem solid ${theme.colors.lighterRedColor}` : null};
   border: ${({success, theme}) => success ? `.2rem solid ${theme.colors.greenSuccessColor}` : null};
   ${flexCenter};
 `

@@ -4,8 +4,6 @@ import moment from "moment";
 
 import {IDate, IOrders} from "../../model/interface";
 
-import {TOrdersGet} from "../../model/type"
-
 import {EMPTY, LAST_WEEK, MONTH, PERIOD, TODAY, TWO_MONTH, TWO_WEEKS} from "../../constants/variables.constants";
 
 interface IFilteredOrders {

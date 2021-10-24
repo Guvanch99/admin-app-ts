@@ -1,13 +1,19 @@
-//Todo fix
-// @ts-nocheck
-import {FC} from "react";
+import {FC,useEffect} from "react";
+import {useDispatch} from "react-redux";
 
 import {CustomTable, PageBack, Spinner} from "../../components"
 
+import {getFeaturedProducts} from "../../redux/crudSlice";
+
 import {useAppSelector} from "../../hooks/redux";
 
-
 const FeaturedProducts:FC = () => {
+    const dispatch=useDispatch()
+
+    useEffect(()=>{
+        dispatch(getFeaturedProducts())
+    },[])
+
     const {status, featuredProducts} = useAppSelector(state => state.crud)
 
     return (

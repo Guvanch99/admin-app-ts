@@ -1,16 +1,16 @@
 import {IGallery, IOrders, IProduct, IUser} from "../interface";
 
-export type TProductsExtraInfoSet = {
+export type TProductsSet = {
     url: string,
     data: IProduct[]
     countData: number
 }
-export type TUsersExtraInfoSet = {
+export type TUsersSet = {
     url: string,
     data: IUser[]
     countData: number
 }
-export type TGalleryExtraInfoSet = {
+export type TGallerySet = {
     url: string,
     data: IGallery[]
 }
@@ -43,8 +43,5 @@ export type TUserGet = {
         'x-total-count': string
     }
 }
-export type TDataGet = {
-    0: TFeaturedProductsGet
-    1: TGalleryGet
-}
-export type TData= { data:TProductsExtraInfoSet|TGalleryExtraInfoSet|TUsersExtraInfoSet|TFeaturedProductsSet }
+
+export type TData= { data:TProductsSet|TGallerySet|TUsersSet|TFeaturedProductsSet }

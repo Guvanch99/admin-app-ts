@@ -1,4 +1,5 @@
 import {ChangeEvent, SyntheticEvent, useMemo, useState} from "react"
+import {useDispatch} from "react-redux";
 import {useHistory} from "react-router-dom"
 
 import {CustomInput, CustomButton} from '../../components'
@@ -13,7 +14,7 @@ import {ADMIN_NAME, ADMIN_PASSWORD} from "../../constants/variables.constants"
 import {upperCaseString} from "../../utils"
 
 import * as S from "./styled"
-import {useDispatch} from "react-redux";
+
 
 interface ILogin {
     adminName: string

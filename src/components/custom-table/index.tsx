@@ -9,7 +9,6 @@ import {LIMIT_ITEMS} from "../../constants/variables.constants";
 
 import * as S from "./styled"
 
-
 type TCustomTable = TData & {
     currentPage?: number
     setCurrentPage?: (value: number) => void
@@ -18,7 +17,7 @@ type TCustomTable = TData & {
 const CustomTable: FC<TCustomTable> = ({data, setCurrentPage, currentPage}) => {
     const refTable = useRef<HTMLTableElement>(null);
 
-    const countItems: number = Math.ceil(data.countData / LIMIT_ITEMS)
+    let countItems: number = Math.ceil(data.countData / LIMIT_ITEMS)
 
     const createExcel = () => {
         let csv = [];

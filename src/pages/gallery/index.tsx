@@ -1,11 +1,19 @@
-import {FC} from "react";
+import {FC, useEffect} from "react";
+import {useDispatch} from "react-redux";
 
 import {CustomTable, PageBack, Spinner} from "../../components";
 
+import {getGallery} from "../../redux/crudSlice";
+
 import {useAppSelector} from "../../hooks/redux";
 
+const Gallery: FC = () => {
+    const dispatch = useDispatch()
 
-const Gallery:FC = () => {
+    useEffect(() => {
+        dispatch(getGallery())
+    }, [])
+
     const {status, gallery} = useAppSelector(state => state.crud)
 
     return (

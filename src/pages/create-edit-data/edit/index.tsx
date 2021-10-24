@@ -1,16 +1,15 @@
-//Todo fix
-//@ts-nocheck
-import {ChangeEvent, FC, useEffect, useState} from "react";
-import {useDispatch} from "react-redux";
+import {ChangeEvent, FC, SyntheticEvent, useEffect, useState} from "react";
 import {useLocation, useHistory} from "react-router-dom";
 
-import {CustomButton, CustomInput, ModalPreview, Portal, ModalSuccess, PageBack} from "../../../components";
+import {CustomButton, CustomInput, ModalPreview, Portal, ModalSuccess} from "../../../components";
 
 import {updateSingleData} from "../../../redux/crudSlice";
 
 import {isObjectValueEmpty} from "../../../utils";
 
 import {getSingleData} from "../../../services/getSingleData";
+
+import {IEditData, ISingleData} from "../../../model/interface";
 
 import {REGEX_NUMBER} from "../../../constants/regex.constants";
 import {ROUTER_GALLERY, ROUTER_PRODUCTS} from "../../../constants/routers.constants";
@@ -19,17 +18,16 @@ import {ErrorGlobal} from "../styled";
 
 import * as S from '../styled'
 
-const Create:FC = () => {
-    const location = useLocation()
+const Create: FC = () => {
+    const {state} = useLocation<ISingleData>()
     const history = useHistory()
-    const dispatch = useDispatch()
 
-    const [error, setError] = useState(false)
-    const [isModalPreview, setIsModalPreview] = useState(false)
-    const [isModalSuccess, setIsModalSuccess] = useState(false)
-    const [singleData, setSingleData] = useState({})
+    const [error, setError] = useState<boolean>(false)
+    const [isModalPreview, setIsModalPreview] = useState<boolean>(false)
+    const [isModalSuccess, setIsModalSuccess] = useState<boolean>(false)
+    const [singleData, setSingleData] = useState<IEditData>()
 
-    const {props: {id, url}} = location
+    const {id, url} = state
 
     useEffect(() => {
         getSingleData({id, url}).then(({data}) => setSingleData(data))
@@ -40,32 +38,31 @@ const Create:FC = () => {
         setError(false)
     }
 
-    const updateData = (e: MouseEvent) => {
+    const updateData = (e: SyntheticEvent) => {
         e.preventDefault()
-        if ((url === ROUTER_GALLERY)) {
-            const props = {id, url, singleData}
-            dispatch(updateItem(props))
-            setIsModalSuccess(true)
-        } else {
-            if (REGEX_NUMBER.test(singleData.price) || REGEX_NUMBER.test(singleData.bonus)) {
-                const props = {id, url, singleData}
-                dispatch(updateSingleData(props))
+        if (singleData)
+            if ((url === ROUTER_GALLERY)) {
+                singleData && updateSingleData(id, url, singleData)
                 setIsModalSuccess(true)
-            } else
-                setError(true)
-        }
-
+            } else {
+                if ((singleData.price && REGEX_NUMBER.test(singleData.price.toString())) ||
+                    (singleData.bonus && REGEX_NUMBER.test(singleData.bonus.toString()))) {
+                    singleData && updateSingleData(id, url, singleData)
+                    setIsModalSuccess(true)
+                } else
+                    setError(true)
+            }
     }
 
     const toggleModalPreview = () => setIsModalPreview(!isModalPreview)
 
-    const closeModalSuccess = (e: MouseEvent) => {
+    const closeModalSuccess = (e: SyntheticEvent) => {
         e.preventDefault()
         setIsModalSuccess(false)
         url === '/all-products' ? history.push(ROUTER_PRODUCTS) : history.push(url)
     }
 
-    const Inputs = Object.keys(singleData).map((key, idx) =>
+    const Inputs = singleData && Object.keys(singleData).map((key, idx) =>
         <CustomInput key={idx} bg='orangeColor'
                      label={key}
                      disabled={key === 'id'}
@@ -78,25 +75,25 @@ const Create:FC = () => {
 
     return (
         <>
-            {isModalPreview ?
+            {(isModalPreview && singleData) ?
                 <Portal nameOfClass='modal-preview'>
                     <ModalPreview
                         toggleModalPreview={toggleModalPreview}
                         data={singleData}/>
                 </Portal> : null}
             {isModalSuccess ?
-                <Portal Component={ModalSuccess} nameOfClass='modal-success'>
-                    <ModalSuccess closeModalSuccess={closeModalSuccess} data={singleData}/>
+                <Portal nameOfClass='modal-success'>
+                    <ModalSuccess
+                        closeModalSuccess={closeModalSuccess}/>
                 </Portal> : null}
-            <PageBack/>
             <S.FormEdit>
                 <S.EditMenuText>Edit Menu</S.EditMenuText>
                 {error ? <ErrorGlobal>Price must be Number</ErrorGlobal> : null}
                 {Inputs}
-                <S.ButtonContainer>
-                    <CustomButton onclick={updateData} disabled={isObjectValueEmpty(singleData)} name='Submit'
-                                  type='submit'/>
-                    {singleData.src ? <CustomButton bg onclick={toggleModalPreview} name='Preview'/> : null}
+                <S.ButtonContainer isPreview={!!singleData?.src}>
+                    <CustomButton onclick={updateData} disabled={singleData ? isObjectValueEmpty(singleData) : false}
+                                  name='Submit'/>
+                    {singleData?.src ? <CustomButton bg onclick={toggleModalPreview} name='Preview'/> : null}
                 </S.ButtonContainer>
             </S.FormEdit>
         </>

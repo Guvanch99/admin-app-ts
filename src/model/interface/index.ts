@@ -66,3 +66,28 @@ export interface IDate {
     from: string,
     to: string
 }
+
+
+export interface ICreateData {
+    name: string
+    src: string
+    description: string
+    price: string|number
+    [key: string]: string | number
+}
+
+export interface IEditData{
+    id?: number|string
+    name?: string,
+    src?: string
+    description?: string
+    price?: number|string
+    type?: string
+    userName?: string
+    email?: string
+    password?: string
+    restrictedPromoCodes?: string[]
+    bonus?: number
+    alt?: string
+    [key: string]: string | number|string[]|undefined
+}

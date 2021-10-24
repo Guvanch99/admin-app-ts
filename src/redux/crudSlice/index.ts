@@ -1,19 +1,19 @@
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import axios, {AxiosResponse} from "axios";
+import axios from "axios";
 
 import {DB} from "../../core/axios";
 
-import {IOrders, ISingleData} from "../../model/interface";
+import {IEditData, IOrders, ISingleData} from "../../model/interface";
 
 import {
-    TDataGet,
+    TFeaturedProductsGet,
     TFeaturedProductsSet,
-    TGalleryExtraInfoSet,
+    TGallerySet, TGalleryGet,
     TOrdersGet,
     TProductGet,
-    TProductsExtraInfoSet,
+    TProductsSet,
     TUserGet,
-    TUsersExtraInfoSet
+    TUsersSet
 } from "../../model/type";
 
 import {ALL_PRODUCTS, NEXT_ID, ORDERS, PRICE,} from "../../constants/variables.constants";
@@ -21,14 +21,13 @@ import {ROUTER_FEATURED_PRODUCTS, ROUTER_GALLERY, ROUTER_USERS} from "../../cons
 import {setOrders} from "../filterSlice";
 
 interface ICRUDState {
-    products: TProductsExtraInfoSet
-    users: TUsersExtraInfoSet
+    products: TProductsSet
+    users: TUsersSet
     featuredProducts: TFeaturedProductsSet
-    gallery: TGalleryExtraInfoSet
+    gallery: TGallerySet
     orders: IOrders[]
     isModal: boolean
     status: boolean
-    error: boolean
 }
 
 const initialState: ICRUDState = {
@@ -38,18 +37,17 @@ const initialState: ICRUDState = {
     gallery: {url: '', data: []},
     orders: [],
     isModal: false,
-    status: false,
-    error: false
-
+    status: false
 }
 
-export const getData = createAsyncThunk(
-    'crud/getData',
-    async () =>
-        axios.all([
-            DB(ROUTER_FEATURED_PRODUCTS),
-            DB(ROUTER_GALLERY)
-        ])
+export const getGallery = createAsyncThunk(
+    'crud/getGallery',
+    async () => DB(ROUTER_GALLERY)
+)
+
+export const getFeaturedProducts = createAsyncThunk(
+    'crud/getFeaturedProducts',
+    async () => DB(ROUTER_FEATURED_PRODUCTS)
 )
 
 export const getProducts = createAsyncThunk(
@@ -65,7 +63,7 @@ export const getUsers = createAsyncThunk(
 export const getOrders = createAsyncThunk(
     'crud/getOrders',
     async (_, {dispatch}) => {
-        const {data}: any = await DB(ORDERS)
+        const {data} = await axios.get<IOrders[]>(`http://localhost:5000${ORDERS}`)
         dispatch(setOrders(data))
         return data
     }
@@ -79,15 +77,12 @@ export const deleteItem = createAsyncThunk(
     }
 )
 
-export const updateSingleData = (id: number, url: string, updatedData: object) => {
-
-    const isPrice = updatedData.hasOwnProperty(PRICE)
+export const updateSingleData = (id: string | number, url: string, singleData: IEditData) => {
+    const isPrice = singleData.hasOwnProperty(PRICE)
     isPrice ? DB.patch(`${url}/${id}`, {
-        ...updatedData,
-        //TODO
-        //@ts-ignore
-        price: Number(updatedData.price)
-    }) : DB.patch(`${url}/${id}`, updatedData)
+        ...singleData,
+        price: Number(singleData.price)
+    }) : DB.patch(`${url}/${id}`, singleData)
 }
 
 
@@ -103,32 +98,19 @@ const CrudSlice = createSlice({
             state.orders = payload.data
         },
         deleteData(state, {payload}: PayloadAction<ISingleData>) {
+            const {users, products, gallery, featuredProducts} = state
             switch (payload.url) {
                 case ROUTER_USERS:
-                    state.users = {
-                        url: state.users.url,
-                        countData: state.users.countData,
-                        data: state.users.data.filter(user => user.id !== payload.id)
-                    }
+                    users.data = users.data.filter(user => user.id !== payload.id)
                     break
                 case ROUTER_GALLERY:
-                    state.gallery = {
-                        url: state.gallery.url,
-                        data: state.gallery.data.filter(gallery => gallery.id !== payload.id)
-                    }
+                    gallery.data = gallery.data.filter(gallery => gallery.id !== payload.id)
                     break
                 case ALL_PRODUCTS:
-                    state.products = {
-                        url: state.products.url,
-                        countData: state.products.countData,
-                        data: state.products.data.filter(product => product.id !== payload.id)
-                    }
+                    products.data = products.data.filter(product => product.id !== payload.id)
                     break
                 case ROUTER_FEATURED_PRODUCTS:
-                    state.featuredProducts = {
-                        url: state.featuredProducts.url,
-                        data: state.featuredProducts.data.filter(featuredProduct => featuredProduct.id !== payload.id)
-                    }
+                    state.featuredProducts.data = featuredProducts.data.filter(featuredProduct => featuredProduct.id !== payload.id)
                     break
                 default:
                     return state
@@ -136,73 +118,54 @@ const CrudSlice = createSlice({
         },
     },
     extraReducers: {
-        [getData.pending.type]: (state) => {
+        [getFeaturedProducts.pending.type]: (state) => {
             state.status = true
-            state.error = false
         },
-        [getData.fulfilled.type]: (state, {payload}: PayloadAction<TDataGet>) => {
+        [getFeaturedProducts.fulfilled.type]: (state, {payload}: PayloadAction<TFeaturedProductsGet>) => {
             state.status = false
-            state.error = false
             state.featuredProducts = {
-                url: payload[0].config.url,
-                data: payload[0].data
-            }
-            state.gallery = {
-                url: payload[1].config.url,
-                data: payload[1].data
+                url: payload.config.url,
+                data: payload.data
             }
         },
-        [getData.rejected.type]: (state) => {
-            state.error = true
+        [getGallery.pending.type]: (state) => {
+            state.status = true
+        },
+        [getGallery.fulfilled.type]: (state, {payload}: PayloadAction<TGalleryGet>) => {
             state.status = false
+            state.gallery = {
+                url: payload.config.url,
+                data: payload.data
+            }
         },
         [getProducts.pending.type]: (state) => {
             state.status = true
-            state.error = false
         },
         [getProducts.fulfilled.type]: (state, {payload}: PayloadAction<TProductGet>) => {
             state.status = false
-            state.error = false
             state.products = {
                 url: payload.config.url.split('?')[0],
                 data: payload.data,
                 countData: Number(payload.headers['x-total-count'])
             }
         },
-        [getProducts.rejected.type]: (state) => {
-            state.error = true
-            state.status = false
-        },
         [getUsers.pending.type]: (state) => {
             state.status = true
-            state.error = false
         },
         [getUsers.fulfilled.type]: (state, {payload}: PayloadAction<TUserGet>) => {
             state.status = false
-            state.error = false
             state.users = {
                 url: payload.config.url.split('?')[0],
                 data: payload.data,
                 countData: Number(payload.headers['x-total-count'])
             }
         },
-        [getUsers.rejected.type]: (state) => {
-            state.error = true
-            state.status = false
-        },
         [getOrders.pending.type]: (state) => {
             state.status = true
-            state.error = false
         },
         [getOrders.fulfilled.type]: (state, {payload}: PayloadAction<IOrders[]>) => {
-            console.log(payload)
             state.status = false
-            state.error = false
             state.orders = payload
-        },
-        [getOrders.rejected.type]: (state) => {
-            state.error = true
-            state.status = false
         },
     }
 })

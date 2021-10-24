@@ -1,4 +1,4 @@
-import {IOrders} from "../model/interface";
+import {IEditData, IOrders} from "../model/interface";
 
 import {
     FIRST_SEGMENT_OFF_SET,
@@ -7,22 +7,20 @@ import {
 import {REGEX_AFTER_DAY_SLASH, REGEX_AFTER_MONTH_SLASH} from "../constants/regex.constants";
 
 
-export const upperCaseString = (str:string) => str.trim().toUpperCase()
+export const upperCaseString = (str: string) => str.trim().toUpperCase()
 
-export const isObjectEmpty = (obj:object )=> Object.keys(obj).length === 0;
+export const isObjectValueEmpty = (obj: IEditData) => obj !== undefined && Object.values(obj).some(x => x === '');
 
-export const isObjectValueEmpty =(obj:object ) => Object.values(obj).some(x => x === '');
-
-export const biteToMb = (number:number) => (number / Math.pow(1024, 2)).toFixed(2)
+export const biteToMb = (number: number) => (number / Math.pow(1024, 2)).toFixed(2)
 
 
-export const insertSlash = (data:string) => data.replace(REGEX_AFTER_DAY_SLASH, '$1/$2').replace(REGEX_AFTER_MONTH_SLASH, '$1/$2')
+export const insertSlash = (data: string) => data.replace(REGEX_AFTER_DAY_SLASH, '$1/$2').replace(REGEX_AFTER_MONTH_SLASH, '$1/$2')
 
-export const getTotals = (orders:IOrders[]) => {
+export const getTotals = (orders: IOrders[]) => {
     //taking all carts from orders and flatting array and get all types from array after with Set get unique values
     const uniqueTypes = Array.from(new Set(orders.map(({cart}) => cart).flat().map(({type}) => type)))
 
-    const objectDefault = uniqueTypes.reduce((acc: { [key: string]: number}, curr) => {
+    const objectDefault = uniqueTypes.reduce((acc: { [key: string]: number }, curr) => {
         acc[curr] = 0
         return acc
     }, {});

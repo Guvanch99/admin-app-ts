@@ -1,5 +1,3 @@
-//Todo fix
-//@ts-nocheck
 import {FC} from "react";
 import {NavLink} from "react-router-dom";
 import {useDispatch} from "react-redux";
@@ -19,7 +17,7 @@ const TableBody:FC<TData> = ({data}) => {
 
     const dispatch = useDispatch()
 
-    const handleDelete = (id:number, url:string) => {
+    const handleDelete = (id:number|string, url:string) => {
         const prop = {id, url}
         dispatch(deleteItem(prop))
     }
@@ -27,12 +25,13 @@ const TableBody:FC<TData> = ({data}) => {
     return (
         <tbody>
         {
+            //@ts-ignore
             data.data.map(({id, name, alt, userName}, idx:number) => (
                 <S.TableBodyRowContainer key={idx}>
                     <S.TableBodyTD>{id}</S.TableBodyTD>
                     <S.TableBodyTD>{name || alt || userName}</S.TableBodyTD>
                     <S.TableBodyTD>
-                        <NavLink to={{pathname: ROUTER_DATA_EDIT, props: {id, url}}}>
+                        <NavLink to={{pathname: ROUTER_DATA_EDIT, state: {id, url}}}>
                             <S.Icon color='greenSuccessColor' className='fas fa-edit'/>
                         </NavLink>
                     </S.TableBodyTD>
