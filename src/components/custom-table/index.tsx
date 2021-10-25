@@ -1,4 +1,3 @@
-//@ts-nocheck
 import {FC, useRef} from "react";
 
 import {CustomButton, TableBody, TableHeader, Pagination} from "../index"
@@ -15,9 +14,10 @@ type TCustomTable = TData & {
 }
 
 const CustomTable: FC<TCustomTable> = ({data, setCurrentPage, currentPage}) => {
-    const refTable = useRef<HTMLTableElement>(null);
+    //@ts-ignore
+    let countItems: number =  Math.ceil(data.countData / LIMIT_ITEMS)
 
-    let countItems: number = Math.ceil(data.countData / LIMIT_ITEMS)
+    const refTable = useRef<HTMLTableElement>(null);
 
     const createExcel = () => {
         let csv = [];
@@ -54,10 +54,13 @@ const CustomTable: FC<TCustomTable> = ({data, setCurrentPage, currentPage}) => {
             <CustomButton onclick={createExcel}>Download Excel</CustomButton>
             <S.Table ref={refTable}>
                 <TableHeader/>
-                <TableBody data={data}/>
+                <TableBody bodyData={data}/>
             </S.Table>
-            {countItems === 1 || isNaN(countItems) ? null :
-                <Pagination countItems={countItems} setCurrentPage={setCurrentPage} currentPage={currentPage}/>}
+
+            {
+                countItems === 1 || isNaN(countItems) ? null :
+                    (setCurrentPage && currentPage) &&
+                    <Pagination countItems={countItems} setCurrentPage={setCurrentPage} currentPage={currentPage}/>}
         </S.CustomTableContainer>
     )
 }

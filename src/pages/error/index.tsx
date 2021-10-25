@@ -5,7 +5,6 @@ import {ROUTER_HOME} from "../../constants/routers.constants"
 
 import * as S from "./styled"
 
-
 const Error:FC = () => {
     const history = useHistory()
 

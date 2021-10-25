@@ -48,6 +48,7 @@ const DataAdd:FC = () => {
         setIsModalSuccess(false)
         history.push(ROUTER_DATA_ADD)
     }
+
     const createData = (e: SyntheticEvent) => {
         e.preventDefault()
         const {price} = addData

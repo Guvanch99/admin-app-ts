@@ -9,7 +9,6 @@ import { useAppSelector} from "../../hooks/redux";
 
 import * as S from './styled'
 
-
 const Statistics = () => {
     const dispatch = useDispatch()
 

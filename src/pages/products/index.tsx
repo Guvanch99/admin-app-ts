@@ -11,7 +11,6 @@ import {ROUTER_DATA_ADD} from "../../constants/routers.constants";
 
 import * as S from "./styled"
 
-
 const Products = () => {
     const {products, status} = useAppSelector(state => state.crud)
     const [currentPage, setCurrentPage] = useState<number>(1)

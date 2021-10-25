@@ -1,17 +1,17 @@
 import {IGallery, IOrders, IProduct, IUser} from "../interface";
 
 export type TProductsSet = {
-    url: string,
+    url: string
     data: IProduct[]
     countData: number
 }
 export type TUsersSet = {
-    url: string,
+    url: string
     data: IUser[]
     countData: number
 }
 export type TGallerySet = {
-    url: string,
+    url: string
     data: IGallery[]
 }
 export type TFeaturedProductsSet = {
@@ -44,4 +44,7 @@ export type TUserGet = {
     }
 }
 
-export type TData= { data:TProductsSet|TGallerySet|TUsersSet|TFeaturedProductsSet }
+export type TData= {
+    data:TProductsSet|TGallerySet|TUsersSet|TFeaturedProductsSet
+}
+

@@ -1,5 +1,3 @@
-import {useDispatch} from "react-redux";
-
 import {MainNavigation} from "../../components"
 
 import * as S from "./styled";

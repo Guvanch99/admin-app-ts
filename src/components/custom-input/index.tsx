@@ -1,5 +1,5 @@
 import * as S from "./styled"
-import {ChangeEvent, FC, ReactElement, ReactNode} from "react";
+import {ChangeEvent, FC} from "react";
 
 interface ICustomInput {
     name: string

@@ -4,20 +4,32 @@ import {useDispatch} from "react-redux";
 
 import {CustomButton} from "../index"
 
-import {TData} from "../../model/type";
-
 import {deleteItem} from "../../redux/crudSlice";
 
 import {ROUTER_DATA_EDIT} from "../../constants/routers.constants";
 
 import * as S from "./styled"
 
-const TableBody:FC<TData> = ({data}) => {
-    const url = data.url
+interface IDataProps{
+    id: string | number
+    name?: string
+    alt?: string
+    userName?: string
+}
+
+interface IData {
+    bodyData: {
+        url: string
+        data: IDataProps[]
+    }
+}
+
+const TableBody: FC<IData> = ({bodyData}) => {
+    const url = bodyData.url
 
     const dispatch = useDispatch()
 
-    const handleDelete = (id:number|string, url:string) => {
+    const handleDelete = (id: number | string, url: string) => {
         const prop = {id, url}
         dispatch(deleteItem(prop))
     }
@@ -25,11 +37,10 @@ const TableBody:FC<TData> = ({data}) => {
     return (
         <tbody>
         {
-            //@ts-ignore
-            data.data.map(({id, name, alt, userName}, idx:number) => (
+            bodyData.data.map(({name, alt, userName, id}, idx: number) => (
                 <S.TableBodyRowContainer key={idx}>
                     <S.TableBodyTD>{id}</S.TableBodyTD>
-                    <S.TableBodyTD>{name || alt || userName}</S.TableBodyTD>
+                    <S.TableBodyTD>{name || userName || alt}</S.TableBodyTD>
                     <S.TableBodyTD>
                         <NavLink to={{pathname: ROUTER_DATA_EDIT, state: {id, url}}}>
                             <S.Icon color='greenSuccessColor' className='fas fa-edit'/>
