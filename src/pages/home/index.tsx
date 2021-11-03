@@ -1,14 +1,16 @@
+import {FC} from "react";
+
 import {MainNavigation} from "../../components"
 
 import * as S from "./styled";
 
-const Home = () => {
+const Home:FC = () => {
 
-    return (
-        <S.Container>
-     <MainNavigation/>
-        </S.Container>
-    )
+  return (
+    <S.Container>
+      <MainNavigation/>
+    </S.Container>
+  )
 }
 
 export default Home

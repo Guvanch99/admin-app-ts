@@ -6,13 +6,13 @@ import * as S from "./styled"
 
 const {tableHeaderRow} = DATA
 
-const TableHeader = () => {
+const TableHeader = () => (
+  <thead>
+  <S.TReaderRow>
+    {tableHeaderRow.map((name, idx) => <S.THeadRowHeader key={idx}>{name}</S.THeadRowHeader>)}
+  </S.TReaderRow>
+  </thead>
+)
 
-    return <thead>
-    <S.TReaderRow>
-        {tableHeaderRow.map((name, idx) => <S.THeadRowHeader key={idx}>{name}</S.THeadRowHeader>)}
-    </S.TReaderRow>
-    </thead>
-}
 
 export default memo(TableHeader)

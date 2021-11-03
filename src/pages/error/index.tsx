@@ -5,18 +5,17 @@ import {ROUTER_HOME} from "../../constants/routers.constants"
 
 import * as S from "./styled"
 
-const Error:FC = () => {
-    const history = useHistory()
+const Error: FC = () => {
+  const history = useHistory()
 
-    useEffect(() => {
-        setTimeout(() => {
-            history.push(ROUTER_HOME)
-        }, 2000)
-    }, [history])
+  useEffect(() => {
+    setTimeout(() => {
+      history.push(ROUTER_HOME)
+    }, 2000)
+  }, [history])
 
-    return (
-        <S.ErrorText>Oops something get wrong</S.ErrorText>
-    )
+  return <S.ErrorText>Oops something get wrong</S.ErrorText>
+
 }
 
 export default memo(Error)

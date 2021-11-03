@@ -8,26 +8,26 @@ import {getGallery} from "../../redux/crudSlice";
 import {useAppSelector} from "../../hooks/redux";
 
 const Gallery: FC = () => {
-    const dispatch = useDispatch()
+  const dispatch = useDispatch()
 
-    useEffect(() => {
-        dispatch(getGallery())
-    }, [])
+  useEffect(() => {
+    dispatch(getGallery())
+  }, [dispatch])
 
-    const {status, gallery} = useAppSelector(state => state.crud)
+  const {status, gallery} = useAppSelector(state => state.crud)
 
-    return (
-        <>
-            {
-                status ? <Spinner/> : (
-                    <>
-                        <PageBack/>
-                        <CustomTable data={gallery}/>
-                    </>
-                )
-            }
-        </>
-    )
+  return (
+    <>
+      {
+        status ? <Spinner/> : (
+          <>
+            <PageBack/>
+            <CustomTable data={gallery}/>
+          </>
+        )
+      }
+    </>
+  )
 }
 
 export default Gallery

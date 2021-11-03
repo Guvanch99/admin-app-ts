@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Button = styled.button<{bg:boolean}>`
+export const Button = styled.button<{ bg: boolean }>`
   color: ${({theme}) => theme.colors.whiteColor};
   background: ${({bg, theme}) => bg ? 'transparent' : theme.colors.greenSuccessColor};
   margin-bottom: 1rem;

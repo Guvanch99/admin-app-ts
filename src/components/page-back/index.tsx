@@ -3,11 +3,11 @@ import {useHistory} from "react-router-dom";
 
 import * as S from './styled'
 
-const PageBack=()=>{
-    const history=useHistory()
-    const goBack=()=>history.goBack()
+const PageBack = () => {
+  const history = useHistory()
+  const goBack = () => history.goBack()
 
-    return <S.Button onClick={goBack}><S.Icon className="far fa-hand-point-left"/>Go Back</S.Button>
+  return <S.Button onClick={goBack}><S.Icon className="far fa-hand-point-left"/>Go Back</S.Button>
 
 }
 

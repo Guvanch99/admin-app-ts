@@ -5,26 +5,28 @@ import {logOut} from "../../redux/adminSlice"
 
 import {DATA} from '../../data'
 
+import {THREE} from "../../constants/variables.constants";
+
 import * as S from "./styled"
 
 const {navLinks} = DATA
 
 const MainNavigation = () => {
-    const dispatch = useDispatch()
+  const dispatch = useDispatch()
 
-    const logOutAdmin = () => dispatch(logOut())
+  const logOutAdmin = () => dispatch(logOut())
 
-    return (
-        <S.Menu>
-            {
-                navLinks.map(({name, url, color}, idx) => (
-                    <S.List color={color} key={idx}>
-                        <S.Link onClick={idx === 3 ? logOutAdmin : undefined} to={url}>{name}</S.Link>
-                    </S.List>
-                ))
-            }
-        </S.Menu>
-    )
+  return (
+    <S.Menu>
+      {
+        navLinks.map(({name, url, color}, idx) => (
+          <S.List color={color} key={idx}>
+            <S.Link onClick={idx === THREE ? logOutAdmin : undefined} to={url}>{name}</S.Link>
+          </S.List>
+        ))
+      }
+    </S.Menu>
+  )
 }
 
 

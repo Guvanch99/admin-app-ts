@@ -4,8 +4,8 @@ import {grid} from "../../styles/mixin.styled";
 import {handleColorType} from "../../styles/functions.styled";
 
 interface IInput {
-    layout?: string | null
-    bg: string | undefined
+  layout?: string | null
+  bg: string | undefined
 
 }
 
@@ -26,7 +26,10 @@ export const Input = styled.input<IInput>`
   font-size: 1.6em;
   line-height: 1.4rem;
   border: none;
-  border-bottom: 1px solid ${({layout, theme}) => layout ? theme.colors.lighterRedColor : theme.colors.lighterBlackColor};
+  border-bottom: 1px solid ${({
+                                layout,
+                                theme
+                              }) => layout ? theme.colors.lighterRedColor : theme.colors.lighterBlackColor};
   outline: none;
   width: 15rem;
   background: ${({bg}) => bg ? handleColorType(bg) : null};

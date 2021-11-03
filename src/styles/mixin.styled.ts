@@ -1,6 +1,6 @@
 interface IProps {
-    justify: string
-    align: string
+  justify: string
+  align: string
 }
 
 export const grid = ({justify, align}: IProps) => `

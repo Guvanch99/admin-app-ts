@@ -12,29 +12,30 @@ import {ROUTER_DATA_ADD} from "../../constants/routers.constants";
 import * as S from "./styled"
 
 const Products = () => {
-    const {products, status} = useAppSelector(state => state.crud)
-    const [currentPage, setCurrentPage] = useState<number>(1)
-    const dispatch = useDispatch()
+  const [currentPage, setCurrentPage] = useState<number>(1)
+  const dispatch = useDispatch()
 
-    useEffect(() => {
-        dispatch(getProducts(currentPage))
-    }, [currentPage, dispatch])
+  useEffect(() => {
+    dispatch(getProducts(currentPage))
+  }, [currentPage, dispatch])
 
-    return (
-        <>
-            {
-                status ? <Spinner/> : (
-                    <div>
-                        <PageBack/>
-                        <S.AddLink to={ROUTER_DATA_ADD}>
-                            Add Products
-                        </S.AddLink>
-                        <CustomTable data={products} setCurrentPage={setCurrentPage} currentPage={currentPage}/>
-                    </div>
-                )
-            }
-        </>
-    )
+  const {products, status} = useAppSelector(state => state.crud)
+
+  return (
+    <>
+      {
+        status ? <Spinner/> : (
+          <div>
+            <PageBack/>
+            <S.AddLink to={ROUTER_DATA_ADD}>
+              Add Products
+            </S.AddLink>
+            <CustomTable data={products} setCurrentPage={setCurrentPage} currentPage={currentPage}/>
+          </div>
+        )
+      }
+    </>
+  )
 }
 
 export default Products

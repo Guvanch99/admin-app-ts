@@ -12,7 +12,7 @@ const FeaturedProducts:FC = () => {
 
     useEffect(()=>{
         dispatch(getFeaturedProducts())
-    },[])
+    },[dispatch])
 
     const {status, featuredProducts} = useAppSelector(state => state.crud)
 
