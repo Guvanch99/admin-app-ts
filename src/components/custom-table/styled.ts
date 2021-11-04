@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import {flexCenter} from "../../styles/flex.styled";
 
-export const CustomTableContainer = styled.div`
+export const CustomTableContainer = styled.section`
   ${flexCenter};
   flex-direction: column;
   margin-top: 2rem;

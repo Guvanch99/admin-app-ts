@@ -5,7 +5,7 @@ import {flexCenter} from "../../styles/flex.styled";
 
 
 
-export const Tag = styled.div<{ isVisible: boolean }>`
+export const Tag = styled.article<{ isVisible: boolean }>`
   opacity: ${({isVisible}) => isVisible ? 1 : 0};
   transition: opacity .4s ease-in;
   margin: 0.6rem 0;
@@ -30,7 +30,7 @@ export const IconTimes = styled.i`
   margin-left: 0.4rem;
 `
 
-export const FilterDivider = styled.div`
+export const FilterDivider = styled.section`
   ${flex({justify: 'space-around', align: 'center'})};
   flex-wrap: wrap;
   width: 50vw;
@@ -48,7 +48,7 @@ export const ButtonFilter = styled.button<{ bg: boolean }>`
   font-weight: bolder;
 `
 
-export const FilterOptionContainer = styled.div<{ isVisible: boolean }>`
+export const FilterOptionContainer = styled.article<{ isVisible: boolean }>`
   margin-top: .2rem;
   opacity: ${({isVisible}) => isVisible ? 1 : 0};
   ${flex({justify: 'space-evenly', align: 'center'})};
@@ -61,12 +61,12 @@ export const FilterOptionContainer = styled.div<{ isVisible: boolean }>`
   transition: opacity .4s ease-in;
 `
 
-export const FilterInfoContainer = styled.div`
+export const FilterInfoContainer = styled.article`
   width: 100vw;
   ${flexCenter};
 `
 
-export const RadioContainer = styled.div`
+export const RadioContainer = styled.article`
   width: 18rem;
   height: 2rem;
   ${flex({justify: 'flex-start', align: 'center'})};
@@ -105,13 +105,13 @@ export const TotalAmount = styled.h2<{ orange?: boolean }>`
   font-size: 1.4em;
 `
 
-export const InfoContainer = styled.div`
+export const InfoContainer = styled.hgroup`
   ${flex({justify: 'space-around', align: 'start'})};
   width: 10rem;
   margin: .4rem;
 `
 
-export const InputContainer = styled.div`
+export const InputContainer = styled.article`
   ${flex({justify: 'space-around', align: 'center'})};
 `
 
@@ -128,7 +128,7 @@ export const InputsWithDash = styled.div`
   ${flexCenter};
 `
 
-export const InputDateContainer = styled.div`
+export const InputDateContainer = styled.article`
   ${flexCenter};
   flex-direction: column;
 

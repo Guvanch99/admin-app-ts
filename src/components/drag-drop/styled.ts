@@ -11,7 +11,7 @@ interface IBig extends IStatus {
     big?: boolean
 }
 
-export const Container = styled.div`
+export const Container = styled.section`
   margin: 2rem;
   ${gridJusItems({justify: 'center', align: 'center'})};
   color: ${({theme}) => theme.colors.whiteColor};
@@ -41,12 +41,12 @@ export const ExcelUploaderText = styled.h1`
   margin: 2rem 0;
 `
 
-export const InstructionContainer = styled.div`
+export const InstructionContainer = styled.hgroup`
   margin: 2rem 0;
   ${gridJusItems({justify: 'start', align: 'center'})};
 `
 
-export const DropArea = styled.div<any>`
+export const DropArea = styled.article<any>`
   width: 60vw;
   height: 60vh;
   border: .2rem ${({isSolidLine}) => isSolidLine ? 'solid' : 'dashed'} ${({theme}) => theme.colors.whiteColor};
@@ -56,7 +56,7 @@ export const DropArea = styled.div<any>`
   ${flexCenter};
 `
 
-export const DragContainer = styled.div`
+export const DragContainer = styled.section`
   ${gridJusItems({justify: 'center', align: 'center'})};
 `
 
@@ -88,7 +88,7 @@ export const List = styled.li`
   font-size: 1.6em;
 `
 
-export const RulesContainer = styled.div`
+export const RulesContainer = styled.article`
   display: flex;
   align-items: center;
 `

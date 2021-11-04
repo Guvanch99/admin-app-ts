@@ -22,7 +22,7 @@ export const ToolTip: any = styled.span`
   width: auto;
 `
 
-export const TargetElement = styled.div`
+export const TargetElement = styled.article`
   cursor: pointer;
 `
 

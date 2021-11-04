@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import {flex} from "../../styles/mixin.styled";
 
-export const Container = styled.div`
+export const Container = styled.section`
   ${flex({justify: 'center', align: 'center'})};
   flex-direction: column;
   margin: 2rem;

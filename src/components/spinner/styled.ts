@@ -11,7 +11,7 @@ const Spin = keyframes`
   }
 `
 
-export const Loader = styled.div`
+export const Loader = styled.section`
   margin: 0 auto;
   border: 16px solid ${({theme}) => theme.colors.lighterGrayColor};
   border-top: 16px solid ${({theme}) => theme.colors.blueColor};
@@ -20,7 +20,7 @@ export const Loader = styled.div`
   height: 8rem;
   animation: ${Spin} 2s linear infinite;
 `
-export const SpinnerContainer = styled.div`
+export const SpinnerContainer = styled.article`
   width: 100vw;
   height: 100vh;
   ${flexCenter};

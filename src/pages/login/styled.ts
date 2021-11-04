@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import {grid} from "../../styles/mixin.styled";
 
-export const Container = styled.div`
+export const Container = styled.section`
   ${grid({justify:'center',align:"center"})};
   height: 100vh;
 `

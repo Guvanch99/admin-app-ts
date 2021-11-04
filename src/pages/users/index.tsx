@@ -22,10 +22,10 @@ const Users = () => {
       {
         status ?
           <Spinner/> : (
-            <div>
+            <section>
               <PageBack/>
               <CustomTable data={users} setCurrentPage={setCurrentPage} currentPage={currentPage}/>
-            </div>
+            </section>
           )
       }
     </>

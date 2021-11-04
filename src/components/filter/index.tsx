@@ -145,7 +145,7 @@ const Filter: FC = () => {
   )
 
   return (
-    <div>
+    <section>
       <S.Tag isVisible={tag}>
         <S.TagButton onClick={filterRemoveHandler}>
           {`${sort} ${from}-${to}`}
@@ -153,7 +153,7 @@ const Filter: FC = () => {
         </S.TagButton>
       </S.Tag>
       <S.FilterDivider>
-        <div>
+        <article>
           <S.ButtonFilter bg={isVisibleFilter} onClick={toggleVisible}>
             Date
             <S.Icon className={`fas fa-sort-${isVisibleFilter ? 'up' : 'down'}`}/>
@@ -208,7 +208,7 @@ const Filter: FC = () => {
               Apply
             </S.ButtonApply>
           </S.FilterOptionContainer>
-        </div>
+        </article>
         <S.OrdersList isVisible={filteredOrders.length>1}>
           <S.InfoContainer>
             <S.UserName orange>Name:</S.UserName>
@@ -226,7 +226,7 @@ const Filter: FC = () => {
           }
         </S.OrdersList>
       </S.FilterDivider>
-    </div>
+    </section>
   )
 }
 

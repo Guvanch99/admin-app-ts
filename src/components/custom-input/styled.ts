@@ -9,7 +9,7 @@ interface IInput {
 
 }
 
-export const Container = styled.div`
+export const Container = styled.section`
   ${grid({justify: 'center', align: "center"})};
   margin: 1rem 0;
   color: ${({theme}) => theme.colors.whiteColor};

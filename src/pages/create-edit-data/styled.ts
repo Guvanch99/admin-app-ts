@@ -14,7 +14,7 @@ export const EditMenuText = styled.h1`
   margin: 2rem auto;
 `
 
-export const ButtonContainer = styled.div<{ isPreview: boolean|string }>`
+export const ButtonContainer = styled.article<{ isPreview: boolean|string }>`
   ${({isPreview}) => {
     if (isPreview) {
     return  css`

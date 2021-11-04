@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import {flexCenter} from "../../styles/flex.styled";
 
-export const PaginationContainer = styled.div`
+export const PaginationContainer = styled.section`
   ${flexCenter};
 `
 

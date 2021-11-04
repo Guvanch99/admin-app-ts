@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import {flex} from "../../styles/mixin.styled";
 
-export const ChartContainer = styled.div`
+export const ChartContainer = styled.section`
   width: 100vw;
   height: 100vh;
   margin-top: 2rem;
@@ -16,18 +16,18 @@ export const ChartLabel = styled.h1`
   color: ${({theme}) => theme.colors.whiteColor};
 `
 
-export const InfoContainer = styled.div`
+export const InfoContainer = styled.article`
   width: 30vw;
   ${flex({justify: 'space-around', align: 'center'})};
   margin: 2rem 0;
 `
 
-export const Info = styled.div`
+export const Info = styled.section`
   ${flex({justify: 'center', align: 'center'})};
   flex-direction: column;
 `
 
-export const InfoBox = styled.div`
+export const InfoBox = styled.article`
   width: 5rem;
   ${flex({justify: 'space-around', align: 'center'})};
 `

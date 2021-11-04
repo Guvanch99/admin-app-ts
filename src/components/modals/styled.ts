@@ -5,7 +5,7 @@ import {flexCenter} from "../../styles/flex.styled";
 import {grid,flex} from "../../styles/mixin.styled";
 
 
-export const ModalWrapper = styled.div`
+export const ModalWrapper = styled.section`
   ${flexCenter};
   width: 100%;
   height: 100%;
@@ -14,7 +14,7 @@ export const ModalWrapper = styled.div`
   margin: 2rem;
 `
 
-export const Modal = styled.div`
+export const Modal = styled.article`
   display: grid;
   justify-items: center;
   color: ${({theme}) => theme.colors.secondaryColor};
@@ -26,7 +26,7 @@ export const Modal = styled.div`
   z-index: 99999;
 `
 
-export const FlexContainer = styled.div`
+export const FlexContainer = styled.article`
   ${flex({justify: 'space-around', align: 'center'})};
 `
 
@@ -38,7 +38,7 @@ export const Image = styled.img`
 `
 
 
-export const ModalPreviewInfo = styled.div`
+export const ModalPreviewInfo = styled.hgroup`
   ${grid({justify: 'space-evenly', align: 'center'})};
   grid-template-columns: 1fr;
   height: 15rem;
